@@ -11,10 +11,20 @@ android {
         applicationId "com.rino.nasaapp"
         minSdk 23
         targetSdk 30
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.0.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes.each {
+        Properties properties = new Properties()
+        properties.load(project.rootProject.file("apikey.properties").newDataInputStream())
+        def apiKey = properties.getProperty("nasa_api_key", "")
+        it.buildConfigField "String", "NASA_API_KEY", apiKey
+
+        it.buildConfigField "String", "NASA_BASE_URL", "\"https://api.nasa.gov/\""
+        it.buildConfigField "Long", "CONNECTION_TIMEOUT", "5L"
     }
 
     buildTypes {
