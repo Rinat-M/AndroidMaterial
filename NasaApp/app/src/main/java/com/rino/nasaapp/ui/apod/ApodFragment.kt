@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide
 import com.rino.nasaapp.R
 import com.rino.nasaapp.databinding.ApodFragmentBinding
 import com.rino.nasaapp.databinding.ProgressBarAndErrorMsgBinding
+import com.rino.nasaapp.entities.DateParameter
 import com.rino.nasaapp.entities.ScreenState
 import com.rino.nasaapp.remote.entities.ApodDTO
 import com.rino.nasaapp.utils.searchInWikipedia
@@ -75,6 +76,15 @@ class ApodFragment : Fragment() {
                 }
             }
 
+            datesChipGroup.setOnCheckedChangeListener { _, checkedId ->
+                apodViewModel.dateParameter = when (checkedId) {
+                    yesterdayChip.id -> DateParameter.YESTERDAY
+                    beforeYesterdayChip.id -> DateParameter.DAY_BEFORE_YESTERDAY
+                    else -> DateParameter.TODAY
+                }
+
+                apodViewModel.fetchData()
+            }
         }
     }
 

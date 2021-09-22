@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.rino.nasaapp.entities.DateParameter
 import com.rino.nasaapp.entities.ScreenState
 import com.rino.nasaapp.remote.entities.ApodDTO
 import com.rino.nasaapp.repositories.NasaRepository
@@ -22,9 +23,11 @@ class ApodViewModel(
         MutableLiveData(ScreenState.Loading)
     val state: LiveData<ScreenState<ApodDTO>> = _state
 
-    fun fetchData(date: String = "") {
+    var dateParameter: DateParameter = DateParameter.TODAY
+
+    fun fetchData() {
         viewModelScope.launch(Dispatchers.IO) {
-            nasaRepository.getAstronomyPictureOfTheDay(date)
+            nasaRepository.getAstronomyPictureOfTheDay(dateParameter.toDateString())
                 .onSuccess { it?.let { apodDTO -> _state.postValue(ScreenState.Success(apodDTO)) } }
                 .onFailure { _state.postValue(ScreenState.Error(it)) }
         }

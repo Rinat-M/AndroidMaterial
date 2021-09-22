@@ -3,4 +3,7 @@
     <string name="apod">Astronomy Picture of the Day</string>
     <string name="search_in_wikipedia">Search in wikipedia</string>
     <string name="wiki_helper_text">Enter your query to search on wikipedia</string>
+    <string name="today">Today</string>
+    <string name="yesterday">Yesterday</string>
+    <string name="day_before_yesterday">The day before yesterday</string>
 </resources>
