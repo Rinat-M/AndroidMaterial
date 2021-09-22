@@ -18,5 +18,5 @@ val appModule = module {
     single { NetworkModule.getNasaService(get()) }
 
     // View models
-    viewModel { ApodViewModel() }
+    viewModel { ApodViewModel(get()) }
 }

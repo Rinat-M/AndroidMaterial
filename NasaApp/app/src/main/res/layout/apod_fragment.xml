@@ -2,19 +2,73 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+    android:id="@+id/apod_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.apod.ApodFragment">
 
     <TextView
-        android:id="@+id/message"
-        android:layout_width="wrap_content"
+        android:id="@+id/apod_title"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="MainFragment"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:fontFamily="@font/pacifico"
+        android:padding="@dimen/margin_padding_8dp"
+        android:text="@string/apod"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/current_apod_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/pacifico"
+        android:textAlignment="center"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/apod_title"
+        tools:text="Sun Spot Hill" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/apod_image"
+        android:layout_width="0dp"
+        android:layout_marginTop="@dimen/margin_padding_8dp"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:background="@color/blue_grey_100"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/current_apod_title"
+        app:srcCompat="@drawable/ic_image" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/apod_image">
+
+        <TextView
+            android:id="@+id/current_apod_explanation"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:lineSpacingExtra="4sp"
+            android:padding="@dimen/margin_padding_8dp"
+            tools:text="Is this giant orange ball about to roll down that tree-lined hill? No, because the giant orange ball is actually the Sun. Our Solar System's central star was captured rising beyond a hill on Earth twelve days ago complete with a delightfully detailed foreground.  The Sun's disk showed five sunspots, quite a lot considering that during the solar minimum in solar activity of the past few years, most days showed no spots. A close look at the hill -- Sierra del Cid in Perter, Spain -- reveals not only silhouetted pine trees, but silhouetted people -- by coincidence three brothers of the photographer.  The trees and brothers were about 3.5-kilometers away during the morning of the well-planned, single-exposure image. A dark filter muted the usually brilliant Sun and brought up great detail on the lower sunspots.  Within a few minutes, the Sun rose far above the hill, while within a week, the sunspots rotated around the Sun, out of view. The captured scene, however, is now frozen in time for all to enjoy." />
+
+    </androidx.core.widget.NestedScrollView>
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/visibilityGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="apod_image,current_apod_title,current_apod_explanation" />
+
+    <include layout="@layout/progress_bar_and_error_msg" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
