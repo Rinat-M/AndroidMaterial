@@ -7,19 +7,46 @@
     android:layout_height="match_parent"
     tools:context=".ui.apod.ApodFragment">
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/input_layout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/search_in_wikipedia"
+        android:padding="@dimen/margin_padding_4dp"
+        app:counterEnabled="true"
+        app:counterMaxLength="50"
+        app:endIconCheckable="true"
+        app:endIconDrawable="@drawable/ic_wikipedia"
+        app:endIconMode="custom"
+        app:helperText="@string/wiki_helper_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/input_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:imeOptions="actionGo"
+            android:inputType="text"
+            android:singleLine="true" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
     <TextView
         android:id="@+id/apod_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_padding_4dp"
         android:fontFamily="@font/pacifico"
-        android:padding="@dimen/margin_padding_8dp"
         android:text="@string/apod"
         android:textAlignment="center"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/input_layout" />
 
     <TextView
         android:id="@+id/current_apod_title"
@@ -36,8 +63,8 @@
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/apod_image"
         android:layout_width="0dp"
-        android:layout_marginTop="@dimen/margin_padding_8dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_padding_8dp"
         android:adjustViewBounds="true"
         android:background="@color/blue_grey_100"
         app:layout_constraintLeft_toLeftOf="parent"

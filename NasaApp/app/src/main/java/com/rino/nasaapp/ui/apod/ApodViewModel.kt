@@ -9,7 +9,6 @@ import com.rino.nasaapp.remote.entities.ApodDTO
 import com.rino.nasaapp.repositories.NasaRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class ApodViewModel(
     private val nasaRepository: NasaRepository

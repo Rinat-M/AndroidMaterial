@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
@@ -13,6 +14,8 @@ import com.rino.nasaapp.databinding.ApodFragmentBinding
 import com.rino.nasaapp.databinding.ProgressBarAndErrorMsgBinding
 import com.rino.nasaapp.entities.ScreenState
 import com.rino.nasaapp.remote.entities.ApodDTO
+import com.rino.nasaapp.utils.searchInWikipedia
+import com.rino.nasaapp.utils.showSnackBar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ApodFragment : Fragment() {
@@ -57,6 +60,22 @@ class ApodFragment : Fragment() {
         apodViewModel.state.observe(viewLifecycleOwner) { state ->
             state?.let { processData(it) }
         }
+
+        with(binding) {
+            inputLayout.setEndIconOnClickListener { requireContext().searchInWikipedia(inputEditText.text.toString()) }
+
+            inputEditText.setOnEditorActionListener { textView, actionId, _ ->
+                val searchText = textView.text.toString()
+
+                if (actionId == EditorInfo.IME_ACTION_GO && searchText.isNotEmpty()) {
+                    requireContext().searchInWikipedia(searchText)
+                    true
+                } else {
+                    false
+                }
+            }
+
+        }
     }
 
     private fun processData(state: ScreenState<ApodDTO>) {
@@ -67,18 +86,22 @@ class ApodFragment : Fragment() {
             }
 
             is ScreenState.Success -> {
+                val apodData = state.data
+
                 with(binding) {
                     visibilityGroup.isVisible = true
                     includeBinding.progressBar.isVisible = false
 
                     Glide.with(requireContext())
-                        .load(state.data.url)
+                        .load(apodData.url)
                         .placeholder(circularProgressDrawable)
                         .error(R.drawable.ic_image)
                         .into(apodImage)
 
-                    currentApodTitle.text = state.data.title
-                    currentApodExplanation.text = state.data.explanation
+                    apodLayout.showSnackBar("url: ${apodData.url}")
+
+                    currentApodTitle.text = apodData.title
+                    currentApodExplanation.text = apodData.explanation
                 }
             }
 
