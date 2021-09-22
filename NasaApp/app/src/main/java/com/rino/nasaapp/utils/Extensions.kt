@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.view.View
+import android.widget.Toast
 import androidx.annotation.StringRes
 import com.google.android.material.snackbar.Snackbar
 
@@ -45,4 +46,12 @@ fun Context.searchInWikipedia(searchText: String) {
     }
 
     startActivity(intent)
+}
+
+fun Context.showToast(@StringRes stringId: Int, duration: Int = Toast.LENGTH_SHORT) {
+    Toast.makeText(this, stringId, duration).show()
+}
+
+fun Context.showToast(msg: String, duration: Int = Toast.LENGTH_SHORT) {
+    Toast.makeText(this, msg, duration).show()
 }

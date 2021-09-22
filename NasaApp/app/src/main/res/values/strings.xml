@@ -6,4 +6,6 @@
     <string name="today">Today</string>
     <string name="yesterday">Yesterday</string>
     <string name="day_before_yesterday">The day before yesterday</string>
+    <string name="favorite">Favorite</string>
+    <string name="settings">Settings</string>
 </resources>
