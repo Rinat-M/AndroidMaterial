@@ -15,7 +15,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/input_layout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/match_constraint"
             android:layout_height="wrap_content"
             android:hint="@string/search_in_wikipedia"
             android:padding="@dimen/margin_padding_4dp"
@@ -53,45 +53,52 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/input_layout" />
 
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/dates_chip_group"
-            android:layout_width="0dp"
+        <HorizontalScrollView
+            android:id="@+id/chips_scroll_view"
+            android:layout_width="@dimen/match_constraint"
             android:layout_height="wrap_content"
             android:paddingStart="@dimen/margin_padding_8dp"
             android:paddingEnd="@dimen/margin_padding_8dp"
-            app:checkedChip="@id/today_chip"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/apod_title"
-            app:selectionRequired="true"
-            app:singleLine="true"
-            app:singleSelection="true">
+            app:layout_constraintTop_toBottomOf="@id/apod_title">
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/today_chip"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/dates_chip_group"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/today"
-                app:chipBackgroundColor="@color/chip_bg_states" />
+                app:checkedChip="@id/today_chip"
+                app:selectionRequired="true"
+                app:singleLine="true"
+                app:singleSelection="true">
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/yesterday_chip"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/yesterday"
-                app:chipBackgroundColor="@color/chip_bg_states" />
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/today_chip"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/today"
+                    app:chipBackgroundColor="@color/chip_bg_states" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/before_yesterday_chip"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/day_before_yesterday"
-                app:chipBackgroundColor="@color/chip_bg_states" />
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/yesterday_chip"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/yesterday"
+                    app:chipBackgroundColor="@color/chip_bg_states" />
 
-        </com.google.android.material.chip.ChipGroup>
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/before_yesterday_chip"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/day_before_yesterday"
+                    app:chipBackgroundColor="@color/chip_bg_states" />
+
+            </com.google.android.material.chip.ChipGroup>
+
+        </HorizontalScrollView>
 
         <TextView
             android:id="@+id/current_apod_title"
@@ -102,12 +109,12 @@
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/dates_chip_group"
+            app:layout_constraintTop_toBottomOf="@id/chips_scroll_view"
             tools:text="Sun Spot Hill" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/apod_image"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/match_constraint"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_padding_8dp"
             android:adjustViewBounds="true"
@@ -119,8 +126,8 @@
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/explanation_scroll_view"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_height="@dimen/match_constraint"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
