@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="mainHeader" format="reference" />
+    <attr name="secondaryHeader" format="reference" />
+    <attr name="customChoiceChip" format="reference" />
+    <attr name="customOutlinedBox" format="reference" />
+</resources>

@@ -4,4 +4,6 @@
     <dimen name="margin_padding_16dp">16dp</dimen>
     <dimen name="margin_padding_4dp">4dp</dimen>
     <dimen name="match_constraint">0dp</dimen>
+    <dimen name="main_header_text_size">18sp</dimen>
+    <dimen name="secondary_header_text_size">14sp</dimen>
 </resources>

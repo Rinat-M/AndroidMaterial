@@ -2,7 +2,7 @@
     <!-- Base application theme. -->
     <style name="Theme.NasaApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimary">@color/blue_700</item>
         <item name="colorPrimaryVariant">@color/blue_800</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
@@ -12,5 +12,38 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="colorAccent">@color/orange_500</item>
+
+        <item name="mainHeader">@style/MainHeader</item>
+        <item name="secondaryHeader">@style/SecondaryHeader</item>
+        <item name="customChoiceChip">@style/CustomChoiceChip</item>
+        <item name="customOutlinedBox">@style/CustomOutlinedBox</item>
     </style>
+
+    <style name="MainHeader" parent="Base.Widget.MaterialComponents.TextView">
+        <item name="android:fontFamily">@font/pacifico</item>
+        <item name="android:layout_marginTop">@dimen/margin_padding_4dp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textSize">@dimen/main_header_text_size</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="SecondaryHeader" parent="Base.Widget.MaterialComponents.TextView">
+        <item name="android:fontFamily">@font/acme</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textSize">@dimen/secondary_header_text_size</item>
+    </style>
+
+    <style name="CustomChoiceChip" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="chipBackgroundColor">@color/chip_bg_states</item>
+    </style>
+
+    <style name="CustomOutlinedBox" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="android:padding">@dimen/margin_padding_4dp</item>
+        <item name="counterEnabled">true</item>
+        <item name="counterMaxLength">50</item>
+        <item name="endIconCheckable">true</item>
+        <item name="endIconMode">custom</item>
+    </style>
+
 </resources>
