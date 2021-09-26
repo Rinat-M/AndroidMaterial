@@ -5,7 +5,9 @@
     android:id="@+id/apod_coordinator_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.apod.ApodFragment">
+    tools:context=".ui.apod.ApodFragment"
+    tools:menu="@menu/menu_bottom_nav"
+    tools:showIn="@layout/main_activity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -87,28 +89,6 @@
 
         </HorizontalScrollView>
 
-        <TextView
-            android:id="@+id/current_apod_title"
-            style="?secondaryHeader"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/chips_scroll_view"
-            tools:text="Sun Spot Hill" />
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/apod_image"
-            android:layout_width="@dimen/match_constraint"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_padding_8dp"
-            android:adjustViewBounds="true"
-            android:background="@color/blue_grey_100"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/current_apod_title"
-            app:srcCompat="@drawable/ic_image" />
-
         <androidx.core.widget.NestedScrollView
             android:id="@+id/explanation_scroll_view"
             android:layout_width="@dimen/match_constraint"
@@ -116,15 +96,39 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/apod_image">
+            app:layout_constraintTop_toBottomOf="@id/chips_scroll_view"
+            tools:ignore="SpeakableTextPresentCheck">
 
-            <TextView
-                android:id="@+id/current_apod_explanation"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:lineSpacingExtra="4sp"
-                android:padding="@dimen/margin_padding_8dp"
-                tools:text="@string/apod_explanation_example" />
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/current_apod_title"
+                    style="?secondaryHeader"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="Sun Spot Hill" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/apod_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_padding_8dp"
+                    android:adjustViewBounds="true"
+                    android:background="@color/blue_grey_100"
+                    app:srcCompat="@drawable/ic_image" />
+
+                <TextView
+                    android:id="@+id/current_apod_explanation"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:lineSpacingExtra="4sp"
+                    android:padding="@dimen/margin_padding_8dp"
+                    tools:text="@string/apod_explanation_example" />
+
+            </LinearLayout>
 
         </androidx.core.widget.NestedScrollView>
 
@@ -138,27 +142,5 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-    <com.google.android.material.bottomappbar.BottomAppBar
-        android:id="@+id/bottom_app_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:backgroundTint="?colorPrimary"
-        app:fabAlignmentMode="center"
-        app:hideOnScroll="true"
-        app:layout_scrollFlags="scroll|enterAlways"
-        app:navigationIcon="@drawable/ic_menu" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="?colorAccent"
-        android:contentDescription="@string/apod_fab_content_description"
-        android:src="@drawable/ic_light_bulb"
-        android:tint="@color/black"
-        app:fabSize="normal"
-        app:layout_anchor="@id/bottom_app_bar" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

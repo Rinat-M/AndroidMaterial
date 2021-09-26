@@ -32,8 +32,14 @@ class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
 
         binding.navigationView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
-                R.id.navigation_one -> requireContext().showToast(R.string.favorite)
-                R.id.navigation_two -> requireContext().showToast(R.string.settings)
+                R.id.navigation_one -> {
+                    requireContext().showToast(R.string.favorite)
+                    dismiss()
+                }
+                R.id.navigation_two -> {
+                    requireContext().showToast(R.string.settings)
+                    dismiss()
+                }
             }
             true
         }

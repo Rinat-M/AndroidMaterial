@@ -60,8 +60,6 @@ class ApodFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setBottomAppBar()
-
         apodViewModel.state.observe(viewLifecycleOwner) { state ->
             state?.let { processData(it) }
         }
@@ -90,11 +88,6 @@ class ApodFragment : Fragment() {
                 apodViewModel.fetchData()
             }
         }
-    }
-
-    private fun setBottomAppBar() {
-        val activity = requireActivity() as AppCompatActivity
-        activity.setSupportActionBar(binding.bottomAppBar)
     }
 
     private fun processData(state: ScreenState<ApodDTO>) {

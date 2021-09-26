@@ -4,4 +4,5 @@
     <attr name="secondaryHeader" format="reference" />
     <attr name="customChoiceChip" format="reference" />
     <attr name="customOutlinedBox" format="reference" />
+    <attr name="bottomAppBar" format="reference" />
 </resources>
