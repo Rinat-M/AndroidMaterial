@@ -2,6 +2,7 @@ package com.rino.nasaapp.utils
 
 import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import android.net.Uri
 import android.view.View
 import android.widget.Toast
@@ -54,4 +55,12 @@ fun Context.showToast(@StringRes stringId: Int, duration: Int = Toast.LENGTH_SHO
 
 fun Context.showToast(msg: String, duration: Int = Toast.LENGTH_SHORT) {
     Toast.makeText(this, msg, duration).show()
+}
+
+fun Context.isDarkMode(): Boolean {
+    return when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+        Configuration.UI_MODE_NIGHT_NO -> false // Night mode is not active, we're using the light theme
+        Configuration.UI_MODE_NIGHT_YES -> true // Night mode is active, we're using dark theme
+        else -> false
+    }
 }
