@@ -12,7 +12,7 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
-        <item name="colorAccent">@color/orange_500</item>
+        <item name="colorAccent">@color/deep_orange_500</item>
 
         <item name="mainHeader">@style/MainHeader</item>
         <item name="secondaryHeader">@style/SecondaryHeader</item>
@@ -52,7 +52,7 @@
     <style name="BottomAppBar" parent="Widget.MaterialComponents.BottomAppBar">
         <item name="android:layout_gravity">bottom</item>
         <item name="android:backgroundTint">?colorPrimary</item>
-        <item name="fabAlignmentMode">center</item>
+        <item name="fabAlignmentMode">end</item>
         <item name="navigationIcon">@drawable/ic_menu</item>
     </style>
 

@@ -27,6 +27,7 @@ fun View.showSnackBar(
 fun View.showSnackBar(
     msg: String,
     duration: Int = Snackbar.LENGTH_SHORT,
+    anchorViewId: Int? = null,
     @StringRes actionStringId: Int? = null,
     action: View.OnClickListener? = null
 ) {
@@ -35,6 +36,8 @@ fun View.showSnackBar(
     if (actionStringId != null && action != null) {
         snackBar.setAction(actionStringId, action)
     }
+
+    anchorViewId?.let { snackBar.setAnchorView(it) }
 
     snackBar.show()
 }

@@ -10,7 +10,6 @@
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="?actionBarSize"
         tools:layout="@layout/apod_fragment" />
 
     <com.google.android.material.bottomappbar.BottomAppBar
@@ -18,6 +17,8 @@
         style="?bottomAppBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:hideOnScroll="true"
+        app:layout_scrollFlags="scroll|enterAlways"
         tools:menu="@menu/nav_menu" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -28,7 +29,6 @@
         android:contentDescription="@string/apod_fab_content_description"
         android:src="@drawable/ic_light_bulb"
         android:tint="@color/black"
-        android:visibility="gone"
         app:fabSize="normal"
         app:layout_anchor="@id/bottom_app_bar" />
 

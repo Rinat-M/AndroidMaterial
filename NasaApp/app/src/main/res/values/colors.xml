@@ -31,6 +31,8 @@
 
     <color name="orange_500">#F9AA33</color>
 
+    <color name="deep_orange_500">#FF5722</color>
+
     <color name="grey_100">#F5F5F5</color>
     <color name="grey_200">#EEEEEE</color>
     <color name="grey_300">#E0E0E0</color>

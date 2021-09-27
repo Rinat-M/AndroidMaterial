@@ -5,14 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.rino.nasaapp.R
 import com.rino.nasaapp.databinding.BottomNavigationLayoutBinding
-import com.rino.nasaapp.utils.showToast
 
 class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
 
     companion object {
-        const val FRAGMENT_TAG = "BottomNavigationDrawerFragment"
+        const val TAG = "BottomNavigationDrawerFragment"
     }
 
     private var _binding: BottomNavigationLayoutBinding? = null
@@ -31,17 +29,8 @@ class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.navigationView.setNavigationItemSelectedListener { menuItem ->
-            when (menuItem.itemId) {
-                R.id.navigation_one -> {
-                    requireContext().showToast(R.string.favorite)
-                    dismiss()
-                }
-                R.id.navigation_two -> {
-                    requireContext().showToast(R.string.settings)
-                    dismiss()
-                }
-            }
-            true
+            dismiss()
+            activity?.onOptionsItemSelected(menuItem) ?: false
         }
     }
 
