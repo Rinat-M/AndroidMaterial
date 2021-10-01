@@ -1,4 +1,4 @@
-package com.rino.nasaapp.ui.apod
+package com.rino.nasaapp.ui.home
 
 import android.os.Bundle
 import android.view.*
@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 import com.rino.nasaapp.R
-import com.rino.nasaapp.databinding.ApodFragmentBinding
+import com.rino.nasaapp.databinding.HomeFragmentBinding
 import com.rino.nasaapp.databinding.ProgressBarAndErrorMsgBinding
 import com.rino.nasaapp.entities.DateParameter
 import com.rino.nasaapp.entities.ScreenState
@@ -17,15 +17,15 @@ import com.rino.nasaapp.utils.searchInWikipedia
 import com.rino.nasaapp.utils.showSnackBar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class ApodFragment : Fragment() {
+class HomeFragment : Fragment() {
 
     companion object {
-        fun newInstance() = ApodFragment()
+        fun newInstance() = HomeFragment()
     }
 
-    private val apodViewModel: ApodViewModel by viewModel()
+    private val homeViewModel: HomeViewModel by viewModel()
 
-    private var _binding: ApodFragmentBinding? = null
+    private var _binding: HomeFragmentBinding? = null
     private val binding get() = _binding!!
 
     private var _includeBinding: ProgressBarAndErrorMsgBinding? = null
@@ -42,14 +42,14 @@ class ApodFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
-        apodViewModel.fetchData()
+        homeViewModel.fetchData()
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = ApodFragmentBinding.inflate(inflater, container, false)
+        _binding = HomeFragmentBinding.inflate(inflater, container, false)
         _includeBinding = ProgressBarAndErrorMsgBinding.bind(binding.root)
         return binding.root
     }
@@ -57,7 +57,7 @@ class ApodFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        apodViewModel.state.observe(viewLifecycleOwner) { state ->
+        homeViewModel.state.observe(viewLifecycleOwner) { state ->
             state?.let { processData(it) }
         }
 
@@ -76,13 +76,13 @@ class ApodFragment : Fragment() {
             }
 
             datesChipGroup.setOnCheckedChangeListener { _, checkedId ->
-                apodViewModel.dateParameter = when (checkedId) {
+                homeViewModel.dateParameter = when (checkedId) {
                     yesterdayChip.id -> DateParameter.YESTERDAY
                     beforeYesterdayChip.id -> DateParameter.DAY_BEFORE_YESTERDAY
                     else -> DateParameter.TODAY
                 }
 
-                apodViewModel.fetchData()
+                homeViewModel.fetchData()
             }
         }
     }
@@ -109,10 +109,7 @@ class ApodFragment : Fragment() {
                         .error(R.drawable.ic_image)
                         .into(apodImage)
 
-                    apodCoordinatorLayout.showSnackBar(
-                        "url: ${apodData.url}",
-                        anchorViewId = binding.anchorGuideline.id
-                    )
+                    apodCoordinatorLayout.showSnackBar("url: ${apodData.url}")
 
                     currentApodTitle.text = apodData.title
                     currentApodExplanation.text = apodData.explanation
@@ -129,11 +126,6 @@ class ApodFragment : Fragment() {
                 }
             }
         }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.nav_menu, menu)
-        super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onDestroyView() {

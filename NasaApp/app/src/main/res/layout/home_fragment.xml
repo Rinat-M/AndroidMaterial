@@ -5,8 +5,8 @@
     android:id="@+id/apod_coordinator_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.apod.ApodFragment"
-    tools:menu="@menu/menu_bottom_nav">
+    tools:context=".ui.home.HomeFragment"
+    tools:menu="@menu/bottom_navigation_menu">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/apod_constraint_layout"
@@ -102,8 +102,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:paddingBottom="?actionBarSize">
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/current_apod_title"
@@ -140,13 +139,6 @@
             app:constraint_referenced_ids="apod_image,current_apod_title,explanation_scroll_view" />
 
         <include layout="@layout/progress_bar_and_error_msg" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/anchor_guideline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.89" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -1,4 +1,4 @@
-package com.rino.nasaapp.ui.apod
+package com.rino.nasaapp.ui.home
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -11,7 +11,7 @@ import com.rino.nasaapp.repositories.NasaRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class ApodViewModel(
+class HomeViewModel(
     private val nasaRepository: NasaRepository
 ) : ViewModel() {
 

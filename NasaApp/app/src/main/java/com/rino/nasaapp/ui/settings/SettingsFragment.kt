@@ -14,8 +14,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class SettingsFragment : Fragment() {
 
     companion object {
-        const val TAG = "SettingsFragment"
-
         fun newInstance() = SettingsFragment()
     }
 

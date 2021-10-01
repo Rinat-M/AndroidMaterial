@@ -4,7 +4,7 @@ import com.rino.nasaapp.datasources.DataSource
 import com.rino.nasaapp.datasources.RemoteDataSourceImpl
 import com.rino.nasaapp.repositories.NasaRepository
 import com.rino.nasaapp.repositories.NasaRepositoryImpl
-import com.rino.nasaapp.ui.apod.ApodViewModel
+import com.rino.nasaapp.ui.home.HomeViewModel
 import com.rino.nasaapp.ui.main.MainViewModel
 import com.rino.nasaapp.ui.settings.SettingsViewModel
 import com.rino.nasaapp.wrappers.ThemeSharedPreferencesWrapper
@@ -24,7 +24,7 @@ val appModule = module {
     single { ThemeSharedPreferencesWrapper(get()) }
 
     // View models
-    viewModel { ApodViewModel(get()) }
+    viewModel { HomeViewModel(get()) }
     viewModel { MainViewModel(get()) }
     viewModel { SettingsViewModel(get()) }
 }
