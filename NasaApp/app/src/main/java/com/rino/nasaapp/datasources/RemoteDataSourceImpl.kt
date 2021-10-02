@@ -1,14 +1,16 @@
 package com.rino.nasaapp.datasources
 
-import com.rino.nasaapp.providers.StringProvider
+import com.rino.nasaapp.entities.RoverCamera
+import com.rino.nasaapp.providers.StringsProvider
 import com.rino.nasaapp.remote.NasaService
 import com.rino.nasaapp.remote.entities.ApodDTO
+import com.rino.nasaapp.remote.entities.PhotosDTO
 import java.text.SimpleDateFormat
 import java.util.*
 
 class RemoteDataSourceImpl(
     private val nasaService: NasaService,
-    private val stringProvider: StringProvider
+    private val stringsProvider: StringsProvider
 ) : DataSource {
 
     override fun getAstronomyPictureOfTheDay(date: String): Result<ApodDTO?> {
@@ -71,9 +73,32 @@ class RemoteDataSourceImpl(
             }
 
             if (imageLink.isEmpty()) {
-                Result.failure(Exception(stringProvider.noImageForSelectedDayMsg))
+                Result.failure(Exception(stringsProvider.noImageForSelectedDayMsg))
             } else {
                 Result.success(imageLink)
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Result.failure(e)
+        }
+    }
+
+    override fun getMarsRoverPhotos(date: String, camera: RoverCamera): Result<PhotosDTO> {
+        return try {
+            val response = nasaService.getMarsRoverPhotos(date, camera).execute()
+
+            if (!response.isSuccessful) {
+                val msg =
+                    "Response code: ${response.code()}. Response message: ${response.errorBody()}"
+                return Result.failure(Exception(msg))
+            }
+
+            val photosDTO = response.body() ?: PhotosDTO(emptyList())
+
+            if (photosDTO.photos.isEmpty()) {
+                Result.failure(Exception(stringsProvider.noPhotosFromCurrentCameraMsg))
+            } else {
+                Result.success(photosDTO)
             }
         } catch (e: Exception) {
             e.printStackTrace()

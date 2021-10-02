@@ -1,8 +1,10 @@
 package com.rino.nasaapp.remote
 
 import com.rino.nasaapp.BuildConfig
+import com.rino.nasaapp.entities.RoverCamera
 import com.rino.nasaapp.remote.entities.ApodDTO
 import com.rino.nasaapp.remote.entities.EpicMetadataDTO
+import com.rino.nasaapp.remote.entities.PhotosDTO
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.GET
@@ -60,4 +62,20 @@ interface NasaService {
         @Query("api_key") apiKey: String = BuildConfig.NASA_API_KEY
     ): Call<ResponseBody>
 
+
+    /**
+     * Each rover has its own set of photos stored in the database, which can be queried separately.
+     * There are several possible queries that can be made against the API. Photos are organized by the sol (Martian rotation or day)
+     * on which they were taken, counting up from the rover's landing date. A photo taken on Curiosity's 1000th Martian sol
+     * exploring Mars, for example, will have a sol attribute of 1000. If instead you prefer to search by the Earth date on
+     * which a photo was taken, you can do that too.
+     * @param earthDate the corresponding date on earth for the given sol in format 'yyyy-MM-dd'.
+     * @param camera each camera has a unique function and perspective, and they are named as follows: FHAZ, RHAZ, MAST, CHEMCAM and etc.
+     */
+    @GET("mars-photos/api/v1/rovers/curiosity/photos")
+    fun getMarsRoverPhotos(
+        @Query("earth_date") earthDate: String,
+        @Query("camera") camera: RoverCamera,
+        @Query("api_key") apiKey: String = BuildConfig.NASA_API_KEY
+    ): Call<PhotosDTO>
 }

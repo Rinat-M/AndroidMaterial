@@ -23,4 +23,16 @@
     <string name="earth">Earth</string>
     <string name="photo_of_the_earth">Photo of the earth</string>
     <string name="no_image_for_selected_day">"There is no image for the selected day!"</string>
+    <string name="mars">Mars</string>
+    <string name="mars_rover_photos">Mars Rover Photos</string>
+    <string name="rover_cameras">Rover Cameras</string>
+    <string name="fhaz">FHAZ</string>
+    <string name="rhaz">RHAZ</string>
+    <string name="mast">MAST</string>
+    <string name="chemcam">CHEMCAM</string>
+    <string name="no_photos_from_current_camera">No photos from current camera!</string>
+    <string name="front_camera_description">Front Hazard Avoidance Camera</string>
+    <string name="rear_camera_description">Rear Hazard Avoidance Camera</string>
+    <string name="mast_camera_description">Mast Camera</string>
+    <string name="chemistry_camera_description">Chemistry and Camera Complex</string>
 </resources>
