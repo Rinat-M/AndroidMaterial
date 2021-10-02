@@ -20,4 +20,7 @@
     <string name="purple">Purple</string>
     <string name="color_themes">Color themes</string>
     <string name="home">Home</string>
+    <string name="earth">Earth</string>
+    <string name="photo_of_the_earth">Photo of the earth</string>
+    <string name="no_image_for_selected_day">"There is no image for the selected day!"</string>
 </resources>

@@ -12,6 +12,13 @@
         tools:layout="@layout/home_fragment" />
 
     <fragment
+        android:id="@id/navigation_earth"
+        android:name="com.rino.nasaapp.ui.earth.EarthFragment"
+        android:label="@string/earth"
+        tools:layout="@layout/earth_fragment"
+        />
+
+    <fragment
         android:id="@+id/navigation_settings"
         android:name="com.rino.nasaapp.ui.settings.SettingsFragment"
         android:label="@string/settings"

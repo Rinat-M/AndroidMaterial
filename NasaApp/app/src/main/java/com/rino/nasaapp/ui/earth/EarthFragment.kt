@@ -1,31 +1,33 @@
-package com.rino.nasaapp.ui.home
+package com.rino.nasaapp.ui.earth
 
+import android.app.DatePickerDialog
 import android.os.Bundle
-import android.view.*
-import android.view.inputmethod.EditorInfo
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 import com.rino.nasaapp.R
-import com.rino.nasaapp.databinding.HomeFragmentBinding
+import com.rino.nasaapp.databinding.EarthFragmentBinding
 import com.rino.nasaapp.databinding.ProgressBarAndErrorMsgBinding
-import com.rino.nasaapp.entities.DateParameter
 import com.rino.nasaapp.entities.ScreenState
-import com.rino.nasaapp.remote.entities.ApodDTO
-import com.rino.nasaapp.utils.searchInWikipedia
+import com.rino.nasaapp.utils.beginOfMonth
 import com.rino.nasaapp.utils.showSnackBar
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.text.SimpleDateFormat
+import java.util.*
 
-class HomeFragment : Fragment() {
+class EarthFragment : Fragment() {
 
     companion object {
-        fun newInstance() = HomeFragment()
+        fun newInstance() = EarthFragment()
     }
 
-    private val homeViewModel: HomeViewModel by viewModel()
+    private val earthViewModel: EarthViewModel by viewModel()
 
-    private var _binding: HomeFragmentBinding? = null
+    private var _binding: EarthFragmentBinding? = null
     private val binding get() = _binding!!
 
     private var _includeBinding: ProgressBarAndErrorMsgBinding? = null
@@ -39,16 +41,21 @@ class HomeFragment : Fragment() {
         }
     }
 
+    private val calendar = Calendar.getInstance()
+    private val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+    private var dateFilter = Date().beginOfMonth()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        homeViewModel.fetchData()
+
+        earthViewModel.fetchData(dateFilter)
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = HomeFragmentBinding.inflate(inflater, container, false)
+        _binding = EarthFragmentBinding.inflate(layoutInflater, container, false)
         _includeBinding = ProgressBarAndErrorMsgBinding.bind(binding.root)
         return binding.root
     }
@@ -56,37 +63,39 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        homeViewModel.state.observe(viewLifecycleOwner) { state ->
+        binding.dateFilter.text = simpleDateFormat.format(dateFilter)
+
+        earthViewModel.state.observe(viewLifecycleOwner) { state ->
             state?.let { processData(it) }
         }
 
-        with(binding) {
-            inputLayout.setEndIconOnClickListener { requireContext().searchInWikipedia(inputEditText.text.toString()) }
+        initDatePicker()
+    }
 
-            inputEditText.setOnEditorActionListener { textView, actionId, _ ->
-                val searchText = textView.text.toString()
+    private fun initDatePicker() {
+        binding.dateFilter.setOnClickListener {
+            val dateSetListener = DatePickerDialog.OnDateSetListener { _, year, month, day ->
+                calendar.set(year, month, day)
+                dateFilter = Date(calendar.timeInMillis)
 
-                if (actionId == EditorInfo.IME_ACTION_GO && searchText.isNotEmpty()) {
-                    requireContext().searchInWikipedia(searchText)
-                    true
-                } else {
-                    false
-                }
+                earthViewModel.fetchData(dateFilter)
+
+                binding.dateFilter.text = simpleDateFormat.format(dateFilter)
             }
 
-            datesChipGroup.setOnCheckedChangeListener { _, checkedId ->
-                homeViewModel.dateParameter = when (checkedId) {
-                    yesterdayChip.id -> DateParameter.YESTERDAY
-                    beforeYesterdayChip.id -> DateParameter.DAY_BEFORE_YESTERDAY
-                    else -> DateParameter.TODAY
-                }
+            val dialog = DatePickerDialog(
+                requireContext(),
+                dateSetListener,
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH)
+            )
 
-                homeViewModel.fetchData()
-            }
+            dialog.show()
         }
     }
 
-    private fun processData(state: ScreenState<ApodDTO>) {
+    private fun processData(state: ScreenState<String>) {
         when (state) {
             ScreenState.Loading -> {
                 binding.visibilityGroup.isVisible = false
@@ -95,23 +104,18 @@ class HomeFragment : Fragment() {
             }
 
             is ScreenState.Success -> {
-                val apodData = state.data
-
                 with(binding) {
                     visibilityGroup.isVisible = true
                     includeBinding.progressBar.isVisible = false
                     includeBinding.errorMsg.isVisible = false
 
                     Glide.with(requireContext())
-                        .load(apodData.url)
+                        .load(state.data)
                         .placeholder(circularProgressDrawable)
                         .error(R.drawable.ic_image)
-                        .into(apodImage)
+                        .into(image)
 
-                    apodCoordinatorLayout.showSnackBar("url: ${apodData.url}")
-
-                    currentApodTitle.text = apodData.title
-                    currentApodExplanation.text = apodData.explanation
+                    container.showSnackBar("url: ${state.data}")
                 }
             }
 
@@ -127,9 +131,9 @@ class HomeFragment : Fragment() {
         }
     }
 
-    override fun onDestroyView() {
+    override fun onDestroy() {
         _binding = null
         _includeBinding = null
-        super.onDestroyView()
+        super.onDestroy()
     }
 }

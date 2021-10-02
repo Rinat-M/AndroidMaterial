@@ -15,10 +15,6 @@ class HomeViewModel(
     private val nasaRepository: NasaRepository
 ) : ViewModel() {
 
-    companion object {
-        private const val TAG = "ApodViewModel"
-    }
-
     private val _state: MutableLiveData<ScreenState<ApodDTO>> =
         MutableLiveData(ScreenState.Loading)
     val state: LiveData<ScreenState<ApodDTO>> = _state
