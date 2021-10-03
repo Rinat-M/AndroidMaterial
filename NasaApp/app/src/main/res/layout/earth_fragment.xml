@@ -36,16 +36,23 @@
             app:layout_constraintTop_toBottomOf="@id/earth_header"
             tools:text="2021-10-02" />
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/image"
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nested_scroll_view"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/match_constraint"
+            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_padding_16dp"
-            android:adjustViewBounds="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/date_filter"
-            app:srcCompat="@drawable/ic_image" />
+            app:layout_constraintTop_toBottomOf="@id/date_filter">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/image"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/match_constraint"
+                android:adjustViewBounds="true"
+                app:srcCompat="@drawable/ic_image" />
+
+        </androidx.core.widget.NestedScrollView>
 
         <include layout="@layout/progress_bar_and_error_msg" />
 
@@ -53,7 +60,7 @@
             android:id="@+id/visibilityGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:constraint_referenced_ids="image" />
+            app:constraint_referenced_ids="image, nested_scroll_view" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

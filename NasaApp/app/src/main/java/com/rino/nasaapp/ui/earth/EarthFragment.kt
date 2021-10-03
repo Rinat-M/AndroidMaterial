@@ -13,7 +13,6 @@ import com.rino.nasaapp.R
 import com.rino.nasaapp.databinding.EarthFragmentBinding
 import com.rino.nasaapp.databinding.ProgressBarAndErrorMsgBinding
 import com.rino.nasaapp.entities.ScreenState
-import com.rino.nasaapp.utils.beginOfMonth
 import com.rino.nasaapp.utils.showSnackBar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.SimpleDateFormat
@@ -43,12 +42,11 @@ class EarthFragment : Fragment() {
 
     private val calendar = Calendar.getInstance()
     private val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-    private var dateFilter = Date().beginOfMonth()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        earthViewModel.fetchData(dateFilter)
+        earthViewModel.fetchData()
     }
 
     override fun onCreateView(
@@ -63,24 +61,32 @@ class EarthFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.dateFilter.text = simpleDateFormat.format(dateFilter)
-
-        earthViewModel.state.observe(viewLifecycleOwner) { state ->
-            state?.let { processData(it) }
-        }
+        subscribeOn()
 
         initDatePicker()
+    }
+
+    private fun subscribeOn() {
+        with(earthViewModel) {
+            dateFilter.observe(viewLifecycleOwner) { date ->
+                date?.let { binding.dateFilter.text = simpleDateFormat.format(it) }
+            }
+
+            state.observe(viewLifecycleOwner) { state ->
+                state?.let { processData(it) }
+            }
+        }
     }
 
     private fun initDatePicker() {
         binding.dateFilter.setOnClickListener {
             val dateSetListener = DatePickerDialog.OnDateSetListener { _, year, month, day ->
                 calendar.set(year, month, day)
-                dateFilter = Date(calendar.timeInMillis)
 
-                earthViewModel.fetchData(dateFilter)
-
-                binding.dateFilter.text = simpleDateFormat.format(dateFilter)
+                with(earthViewModel) {
+                    setDateFilter(Date(calendar.timeInMillis))
+                    fetchData()
+                }
             }
 
             val dialog = DatePickerDialog(
@@ -112,7 +118,7 @@ class EarthFragment : Fragment() {
                     Glide.with(requireContext())
                         .load(state.data)
                         .placeholder(circularProgressDrawable)
-                        .error(R.drawable.ic_image)
+                        .error(R.drawable.ic_report_problem)
                         .into(image)
 
                     container.showSnackBar("url: ${state.data}")

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.IdRes
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
@@ -14,7 +15,6 @@ import com.rino.nasaapp.databinding.MarsFragmentBinding
 import com.rino.nasaapp.databinding.ProgressBarAndErrorMsgBinding
 import com.rino.nasaapp.entities.RoverCamera
 import com.rino.nasaapp.entities.ScreenState
-import com.rino.nasaapp.utils.beginOfMonth
 import com.rino.nasaapp.utils.showSnackBar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.lang.Exception
@@ -46,13 +46,10 @@ class MarsFragment : Fragment() {
     private val calendar = Calendar.getInstance()
     private val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
 
-    private var dateFilter = Date().beginOfMonth()
-    private var cameraFilter = RoverCamera.FHAZ
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        fetchData()
+        marsViewModel.fetchData()
     }
 
     override fun onCreateView(
@@ -67,48 +64,66 @@ class MarsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.dateFilter.text = simpleDateFormat.format(dateFilter)
-
-        marsViewModel.state.observe(viewLifecycleOwner) { state ->
-            state?.let { processData(it) }
-        }
+        subscribeOn()
 
         initDatePicker()
         initChips()
     }
 
-    private fun fetchData() =
-        marsViewModel.fetchData(simpleDateFormat.format(dateFilter), cameraFilter)
+    private fun subscribeOn() {
+        with(marsViewModel) {
+            dateFilter.observe(viewLifecycleOwner) { date ->
+                date?.let { binding.dateFilter.text = simpleDateFormat.format(it) }
+            }
+
+            camera.observe(viewLifecycleOwner) { camera ->
+                camera?.let {
+                    val chipId = getChipIdByRoverCamera(it)
+                    changeCameraDescriptionByChipId(chipId)
+                }
+            }
+
+            state.observe(viewLifecycleOwner) { state ->
+                state?.let { processData(it) }
+            }
+        }
+    }
+
+    private fun changeCameraDescriptionByChipId(chipId: Int) {
+        with(binding) {
+            when (chipId) {
+                frontCameraChip.id -> {
+                    cameraDescription.text =
+                        context?.getText(R.string.front_camera_description) ?: ""
+                }
+                rearCameraChip.id -> {
+                    cameraDescription.text =
+                        context?.getText(R.string.rear_camera_description) ?: ""
+                }
+                chemistryCameraChip.id -> {
+                    cameraDescription.text =
+                        context?.getText(R.string.chemistry_camera_description) ?: ""
+                }
+                mastCameraChip.id -> {
+                    cameraDescription.text =
+                        context?.getText(R.string.mast_camera_description) ?: ""
+                }
+
+                else -> {
+                }
+            }
+        }
+    }
 
     private fun initChips() {
         with(binding) {
             camerasChipGroup.setOnCheckedChangeListener { _, checkedId ->
-                cameraFilter = when (checkedId) {
-                    frontCameraChip.id -> {
-                        cameraDescription.text =
-                            context?.getText(R.string.front_camera_description) ?: ""
-                        RoverCamera.FHAZ
-                    }
-                    rearCameraChip.id -> {
-                        cameraDescription.text =
-                            context?.getText(R.string.rear_camera_description) ?: ""
-                        RoverCamera.RHAZ
-                    }
-                    chemistryCameraChip.id -> {
-                        cameraDescription.text =
-                            context?.getText(R.string.chemistry_camera_description) ?: ""
-                        RoverCamera.CHEMCAM
-                    }
-                    mastCameraChip.id -> {
-                        cameraDescription.text =
-                            context?.getText(R.string.mast_camera_description) ?: ""
-                        RoverCamera.MAST
-                    }
+                val camera = getRoverCameraByChipId(checkedId)
 
-                    else -> throw Exception("Unknown rover camera")
+                with(marsViewModel) {
+                    setCamera(camera)
+                    fetchData()
                 }
-
-                fetchData()
             }
         }
     }
@@ -117,11 +132,11 @@ class MarsFragment : Fragment() {
         binding.dateFilter.setOnClickListener {
             val dateSetListener = DatePickerDialog.OnDateSetListener { _, year, month, day ->
                 calendar.set(year, month, day)
-                dateFilter = Date(calendar.timeInMillis)
 
-                fetchData()
-
-                binding.dateFilter.text = simpleDateFormat.format(dateFilter)
+                with(marsViewModel) {
+                    setDateFilter(Date(calendar.timeInMillis))
+                    fetchData()
+                }
             }
 
             val dialog = DatePickerDialog(
@@ -170,6 +185,22 @@ class MarsFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun getRoverCameraByChipId(@IdRes chipId: Int) = when (chipId) {
+        binding.frontCameraChip.id -> RoverCamera.FHAZ
+        binding.rearCameraChip.id -> RoverCamera.RHAZ
+        binding.chemistryCameraChip.id -> RoverCamera.CHEMCAM
+        binding.mastCameraChip.id -> RoverCamera.MAST
+
+        else -> throw Exception("Unknown rover camera")
+    }
+
+    private fun getChipIdByRoverCamera(camera: RoverCamera) = when (camera) {
+        RoverCamera.FHAZ -> binding.frontCameraChip.id
+        RoverCamera.RHAZ -> binding.rearCameraChip.id
+        RoverCamera.MAST -> binding.chemistryCameraChip.id
+        RoverCamera.CHEMCAM -> binding.mastCameraChip.id
     }
 
     override fun onDestroy() {
