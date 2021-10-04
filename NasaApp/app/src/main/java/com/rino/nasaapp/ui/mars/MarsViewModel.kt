@@ -29,6 +29,8 @@ class MarsViewModel(
     private val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
 
     fun fetchData() {
+        _state.value = ScreenState.Loading
+
         viewModelScope.launch(Dispatchers.IO) {
             nasaRepository.getMarsRoverPhotos(
                 simpleDateFormat.format(dateFilter.value!!),

@@ -7,136 +7,167 @@
     android:layout_height="match_parent"
     tools:context=".ui.earth.EarthFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/mars_app_bar_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="@dimen/mars_app_bar_layout_height"
+        android:fitsSystemWindows="true"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-        <TextView
-            android:id="@+id/mars_header"
-            style="?attr/mainHeader"
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/mars_collapsing_layout"
+            style="@style/ThemeOverlay.MaterialComponents.Toolbar.Primary"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_padding_16dp"
-            android:text="@string/mars_rover_photos"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="match_parent"
+            app:contentScrim="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:toolbarId="@id/mars_toolbar">
 
-        <TextView
-            android:id="@+id/date_filter"
-            style="?secondaryHeader"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_padding_16dp"
-            android:background="@drawable/bg_round_shape"
-            android:padding="@dimen/margin_padding_8dp"
-            android:textAlignment="center"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/mars_header"
-            tools:text="2021-10-02" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="?actionBarSize">
 
-        <TextView
-            android:id="@+id/rover_cameras_title"
-            style="?secondaryHeader"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_padding_16dp"
-            android:text="@string/rover_cameras"
-            android:textAlignment="center"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/date_filter" />
+                <TextView
+                    android:id="@+id/date_filter"
+                    style="?secondaryHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_round_shape"
+                    android:padding="@dimen/margin_padding_8dp"
+                    android:textAlignment="center"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="2021-10-02" />
 
-        <HorizontalScrollView
-            android:id="@+id/chips_scroll_view"
-            android:layout_width="@dimen/match_constraint"
-            android:layout_height="wrap_content"
-            android:paddingStart="@dimen/margin_padding_8dp"
-            android:paddingEnd="@dimen/margin_padding_8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/rover_cameras_title">
+                <TextView
+                    android:id="@+id/rover_cameras_title"
+                    style="?secondaryHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_padding_8dp"
+                    android:text="@string/rover_cameras"
+                    android:textAlignment="center"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/date_filter" />
 
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/cameras_chip_group"
-                android:layout_width="wrap_content"
+                <HorizontalScrollView
+                    android:id="@+id/chips_scroll_view"
+                    android:layout_width="@dimen/match_constraint"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/margin_padding_8dp"
+                    android:paddingEnd="@dimen/margin_padding_8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/rover_cameras_title">
+
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/cameras_chip_group"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:checkedChip="@id/front_camera_chip"
+                        app:selectionRequired="true"
+                        app:singleLine="true"
+                        app:singleSelection="true">
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/front_camera_chip"
+                            style="?attr/customChoiceChip"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/fhaz" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/rear_camera_chip"
+                            style="?attr/customChoiceChip"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/rhaz" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/mast_camera_chip"
+                            style="?attr/customChoiceChip"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/mast" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chemistry_camera_chip"
+                            style="?attr/customChoiceChip"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/chemcam" />
+
+                    </com.google.android.material.chip.ChipGroup>
+
+                </HorizontalScrollView>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/mars_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin">
+
+                <TextView
+                    android:id="@+id/mars_header"
+                    style="?attr/mainHeader"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_padding_8dp"
+                    android:text="@string/mars_rover_photos"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </com.google.android.material.appbar.MaterialToolbar>
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/progress_bar_and_error_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?actionBarSize">
+
+        <include layout="@layout/progress_bar_and_error_msg" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nested_scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/camera_description"
+                style="?secondaryHeader"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:checkedChip="@id/front_camera_chip"
-                app:selectionRequired="true"
-                app:singleLine="true"
-                app:singleSelection="true">
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/front_camera_chip"
-                    style="?attr/customChoiceChip"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/fhaz" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/rear_camera_chip"
-                    style="?attr/customChoiceChip"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/rhaz" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/mast_camera_chip"
-                    style="?attr/customChoiceChip"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/mast" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chemistry_camera_chip"
-                    style="?attr/customChoiceChip"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/chemcam" />
-
-            </com.google.android.material.chip.ChipGroup>
-
-        </HorizontalScrollView>
-
-        <TextView
-            android:id="@+id/camera_description"
-            style="?secondaryHeader"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_padding_16dp"
-            android:text="@string/front_camera_description"
-            android:textAlignment="center"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/chips_scroll_view" />
-
-        <androidx.core.widget.NestedScrollView
-            android:id="@+id/nested_scroll_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_padding_16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/camera_description">
+                android:layout_marginTop="@dimen/margin_padding_16dp"
+                android:text="@string/front_camera_description"
+                android:textAlignment="center" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/image"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/match_constraint"
+                android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
                 app:srcCompat="@drawable/ic_image" />
 
-        </androidx.core.widget.NestedScrollView>
+        </LinearLayout>
 
-        <include layout="@layout/progress_bar_and_error_msg" />
-
-        <androidx.constraintlayout.widget.Group
-            android:id="@+id/visibilityGroup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:constraint_referenced_ids="image, nested_scroll_view" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

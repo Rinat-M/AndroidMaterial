@@ -22,6 +22,8 @@ class EarthViewModel(
     val dateFilter: LiveData<Date> = _dateFilter
 
     fun fetchData() {
+        _state.value = ScreenState.Loading
+
         viewModelScope.launch(Dispatchers.IO) {
             dateFilter.value?.let { date ->
                 nasaRepository.getEpicImageLink(date)

@@ -154,14 +154,14 @@ class MarsFragment : Fragment() {
     private fun processData(state: ScreenState<String>) {
         when (state) {
             ScreenState.Loading -> {
-                binding.visibilityGroup.isVisible = false
+                binding.nestedScrollView.isVisible = false
                 includeBinding.progressBar.isVisible = true
                 includeBinding.errorMsg.isVisible = false
             }
 
             is ScreenState.Success -> {
                 with(binding) {
-                    visibilityGroup.isVisible = true
+                    nestedScrollView.isVisible = true
                     includeBinding.progressBar.isVisible = false
                     includeBinding.errorMsg.isVisible = false
 
@@ -176,7 +176,7 @@ class MarsFragment : Fragment() {
             }
 
             is ScreenState.Error -> {
-                binding.visibilityGroup.isVisible = false
+                binding.nestedScrollView.isVisible = false
 
                 with(includeBinding) {
                     progressBar.isVisible = false

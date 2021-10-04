@@ -6,4 +6,5 @@
     <dimen name="match_constraint">0dp</dimen>
     <dimen name="main_header_text_size">18sp</dimen>
     <dimen name="secondary_header_text_size">14sp</dimen>
+    <dimen name="mars_app_bar_layout_height">165dp</dimen>
 </resources>
