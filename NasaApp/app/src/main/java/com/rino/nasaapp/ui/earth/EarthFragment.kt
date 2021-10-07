@@ -2,18 +2,24 @@ package com.rino.nasaapp.ui.earth
 
 import android.app.DatePickerDialog
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.viewModelScope
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
+import androidx.transition.Slide
+import androidx.transition.TransitionManager
 import com.bumptech.glide.Glide
 import com.rino.nasaapp.R
 import com.rino.nasaapp.databinding.EarthFragmentBinding
 import com.rino.nasaapp.databinding.ProgressBarAndErrorMsgBinding
 import com.rino.nasaapp.entities.ScreenState
 import com.rino.nasaapp.utils.showSnackBar
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.SimpleDateFormat
 import java.util.*
@@ -64,6 +70,8 @@ class EarthFragment : Fragment() {
         subscribeOn()
 
         initDatePicker()
+
+        initAnimation()
     }
 
     private fun subscribeOn() {
@@ -101,6 +109,18 @@ class EarthFragment : Fragment() {
         }
     }
 
+    private fun initAnimation() {
+        earthViewModel.viewModelScope.launch {
+            delay(150)
+            TransitionManager.beginDelayedTransition(binding.constraintLayout, Slide(Gravity.END))
+            binding.earthHeader.isVisible = !binding.earthHeader.isVisible
+
+            delay(150)
+            TransitionManager.beginDelayedTransition(binding.constraintLayout, Slide(Gravity.START))
+            binding.dateFilter.isVisible = !binding.dateFilter.isVisible
+        }
+    }
+
     private fun processData(state: ScreenState<String>) {
         when (state) {
             ScreenState.Loading -> {
@@ -121,7 +141,7 @@ class EarthFragment : Fragment() {
                         .error(R.drawable.ic_report_problem)
                         .into(image)
 
-                    container.showSnackBar("url: ${state.data}")
+                    coordinatorLayout.showSnackBar("url: ${state.data}")
                 }
             }
 
