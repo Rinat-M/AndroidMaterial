@@ -6,11 +6,12 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.viewModelScope
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
-import androidx.transition.Slide
+import androidx.transition.*
 import com.bumptech.glide.Glide
 import com.rino.nasaapp.R
 import com.rino.nasaapp.databinding.EarthFragmentBinding
@@ -48,6 +49,8 @@ class EarthFragment : Fragment() {
     private val calendar = Calendar.getInstance()
     private val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
 
+    private var isExpanded = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -71,6 +74,8 @@ class EarthFragment : Fragment() {
         initDatePicker()
 
         initAnimation()
+
+        initImageZoomAnimation()
     }
 
     private fun subscribeOn() {
@@ -113,6 +118,35 @@ class EarthFragment : Fragment() {
             binding.constraintLayout.apply {
                 applyAnimation(Slide(Gravity.END), binding.earthHeader, 150)
                 applyAnimation(Slide(Gravity.START), binding.dateFilter, 150)
+            }
+        }
+    }
+
+    private fun initImageZoomAnimation() {
+        binding.image.setOnClickListener {
+            isExpanded = !isExpanded
+
+            val transition = TransitionSet()
+                .addTransition(ChangeBounds())
+                .addTransition(ChangeImageTransform())
+
+            TransitionManager.beginDelayedTransition(binding.coordinatorLayout, transition)
+
+            with(binding.image) {
+                val params: ViewGroup.LayoutParams = layoutParams
+                params.height = if (isExpanded) {
+                    ViewGroup.LayoutParams.MATCH_PARENT
+                } else {
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+                }
+
+                layoutParams = params
+
+                scaleType = if (isExpanded) {
+                    ImageView.ScaleType.CENTER_CROP
+                } else {
+                    ImageView.ScaleType.FIT_CENTER
+                }
             }
         }
     }
