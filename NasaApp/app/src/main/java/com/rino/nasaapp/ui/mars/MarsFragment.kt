@@ -2,22 +2,26 @@ package com.rino.nasaapp.ui.mars
 
 import android.app.DatePickerDialog
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.IdRes
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.viewModelScope
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
+import androidx.transition.Slide
 import com.bumptech.glide.Glide
 import com.rino.nasaapp.R
 import com.rino.nasaapp.databinding.MarsFragmentBinding
 import com.rino.nasaapp.databinding.ProgressBarAndErrorMsgBinding
 import com.rino.nasaapp.entities.RoverCamera
 import com.rino.nasaapp.entities.ScreenState
+import com.rino.nasaapp.utils.applyAnimation
 import com.rino.nasaapp.utils.showSnackBar
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -68,6 +72,7 @@ class MarsFragment : Fragment() {
 
         initDatePicker()
         initChips()
+        initAnimation()
     }
 
     private fun subscribeOn() {
@@ -171,7 +176,7 @@ class MarsFragment : Fragment() {
                         .error(R.drawable.ic_image)
                         .into(image)
 
-                    container.showSnackBar("url: ${state.data}")
+                    coordinatorLayout.showSnackBar("url: ${state.data}")
                 }
             }
 
@@ -201,6 +206,16 @@ class MarsFragment : Fragment() {
         RoverCamera.RHAZ -> binding.rearCameraChip.id
         RoverCamera.MAST -> binding.chemistryCameraChip.id
         RoverCamera.CHEMCAM -> binding.mastCameraChip.id
+    }
+
+    private fun initAnimation() {
+        marsViewModel.viewModelScope.launch {
+            binding.coordinatorLayout.apply {
+                applyAnimation(Slide(Gravity.END), binding.marsHeader, 150)
+                applyAnimation(Slide(Gravity.START), binding.dateFilter, 150)
+                applyAnimation(Slide(Gravity.TOP), binding.chipsScrollView, 150)
+            }
+        }
     }
 
     override fun onDestroy() {

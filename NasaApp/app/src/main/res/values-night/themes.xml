@@ -22,6 +22,7 @@
         <item name="colorControlNormal">?colorOnSecondary</item>
         <item name="android:textColor">?colorOnSecondary</item>
         <item name="bottomNavigationStyle">@style/BottomNavigationView</item>
+        <item name="appBarBackgroundColor">@color/black</item>
     </style>
 
     <style name="MainHeader" parent="Base.Widget.MaterialComponents.TextView">
@@ -64,6 +65,10 @@
     <style name="ThemeOverlay.App.BottomNavigationView" parent="">
         <item name="colorOnSurface">?colorPrimaryVariant</item>
         <item name="colorPrimary">@color/grey_100</item>
+    </style>
+
+    <style name="AppBar" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:background">?appBarBackgroundColor</item>
     </style>
 
 </resources>
