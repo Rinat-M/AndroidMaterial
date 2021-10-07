@@ -1,5 +1,6 @@
 package com.rino.nasaapp.ui.mars
 
+import android.animation.ObjectAnimator
 import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.Gravity
@@ -124,6 +125,9 @@ class MarsFragment : Fragment() {
         with(binding) {
             camerasChipGroup.setOnCheckedChangeListener { _, checkedId ->
                 val camera = getRoverCameraByChipId(checkedId)
+
+                val chipView: View = binding.root.findViewById(checkedId)
+                ObjectAnimator.ofFloat(chipView, "rotation", 0f, 360f).start()
 
                 with(marsViewModel) {
                     setCamera(camera)
