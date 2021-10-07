@@ -5,18 +5,15 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.viewModelScope
 import androidx.transition.Fade
 import androidx.transition.Slide
-import androidx.transition.Transition
-import androidx.transition.TransitionManager
 import com.rino.nasaapp.R
 import com.rino.nasaapp.databinding.SettingsFragmentBinding
 import com.rino.nasaapp.entities.Theme
+import com.rino.nasaapp.utils.applyAnimation
 import com.rino.nasaapp.wrappers.ApplyThemeObserver
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -88,28 +85,19 @@ class SettingsFragment : Fragment() {
 
     private fun initAnimation() {
         settingsViewModel.viewModelScope.launch {
-            applyAnimation(binding.constraintLayout, Fade(), binding.settingsHeader, 250)
+            binding.constraintLayout.apply {
+                applyAnimation(Fade(), binding.settingsHeader, 250)
 
-            applyAnimation(binding.constraintLayout, Slide(Gravity.END), binding.systemTheme)
-            applyAnimation(binding.constraintLayout, Slide(Gravity.END), binding.lightTheme)
-            applyAnimation(binding.constraintLayout, Slide(Gravity.END), binding.darkTheme)
-            applyAnimation(binding.constraintLayout, Slide(Gravity.END), binding.greyTheme)
-            applyAnimation(binding.constraintLayout, Slide(Gravity.END), binding.blueGreyTheme)
-            applyAnimation(binding.constraintLayout, Slide(Gravity.END), binding.indigoTheme)
-            applyAnimation(binding.constraintLayout, Slide(Gravity.END), binding.lightGreenTheme)
-            applyAnimation(binding.constraintLayout, Slide(Gravity.END), binding.purpleTheme)
+                applyAnimation(Slide(Gravity.END), binding.systemTheme)
+                applyAnimation(Slide(Gravity.END), binding.lightTheme)
+                applyAnimation(Slide(Gravity.END), binding.darkTheme)
+                applyAnimation(Slide(Gravity.END), binding.greyTheme)
+                applyAnimation(Slide(Gravity.END), binding.blueGreyTheme)
+                applyAnimation(Slide(Gravity.END), binding.indigoTheme)
+                applyAnimation(Slide(Gravity.END), binding.lightGreenTheme)
+                applyAnimation(Slide(Gravity.END), binding.purpleTheme)
+            }
         }
-    }
-
-    private suspend fun applyAnimation(
-        viewGroup: ViewGroup,
-        transition: Transition,
-        itemView: View,
-        timeMillis: Long = 100
-    ) {
-        delay(timeMillis)
-        TransitionManager.beginDelayedTransition(viewGroup, transition)
-        itemView.isVisible = !itemView.isVisible
     }
 
     override fun onDestroy() {

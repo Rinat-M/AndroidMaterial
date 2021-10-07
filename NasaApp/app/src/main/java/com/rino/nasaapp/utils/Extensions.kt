@@ -5,9 +5,14 @@ import android.content.Intent
 import android.content.res.Configuration
 import android.net.Uri
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.StringRes
+import androidx.core.view.isVisible
+import androidx.transition.Transition
+import androidx.transition.TransitionManager
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.delay
 import java.util.*
 
 fun View.showSnackBar(
@@ -74,4 +79,14 @@ fun Date.beginOfMonth(): Date {
     calendar.time = this
     calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), 1)
     return calendar.time
+}
+
+suspend fun ViewGroup.applyAnimation(
+    transition: Transition,
+    itemView: View,
+    timeMillis: Long = 100
+) {
+    delay(timeMillis)
+    TransitionManager.beginDelayedTransition(this, transition)
+    itemView.isVisible = !itemView.isVisible
 }

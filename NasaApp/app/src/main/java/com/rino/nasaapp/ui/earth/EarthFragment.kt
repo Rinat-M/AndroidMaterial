@@ -11,14 +11,13 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.viewModelScope
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import androidx.transition.Slide
-import androidx.transition.TransitionManager
 import com.bumptech.glide.Glide
 import com.rino.nasaapp.R
 import com.rino.nasaapp.databinding.EarthFragmentBinding
 import com.rino.nasaapp.databinding.ProgressBarAndErrorMsgBinding
 import com.rino.nasaapp.entities.ScreenState
+import com.rino.nasaapp.utils.applyAnimation
 import com.rino.nasaapp.utils.showSnackBar
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.SimpleDateFormat
@@ -111,13 +110,10 @@ class EarthFragment : Fragment() {
 
     private fun initAnimation() {
         earthViewModel.viewModelScope.launch {
-            delay(150)
-            TransitionManager.beginDelayedTransition(binding.constraintLayout, Slide(Gravity.END))
-            binding.earthHeader.isVisible = !binding.earthHeader.isVisible
-
-            delay(150)
-            TransitionManager.beginDelayedTransition(binding.constraintLayout, Slide(Gravity.START))
-            binding.dateFilter.isVisible = !binding.dateFilter.isVisible
+            binding.constraintLayout.apply {
+                applyAnimation(Slide(Gravity.END), binding.earthHeader, 150)
+                applyAnimation(Slide(Gravity.START), binding.dateFilter, 150)
+            }
         }
     }
 
