@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraint_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.settings.SettingsFragment">
@@ -9,13 +10,15 @@
     <TextView
         android:id="@+id/settings_header"
         style="?mainHeader"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_padding_16dp"
         android:text="@string/color_themes"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
 
     <RadioGroup
         android:id="@+id/theme_radio_group"
@@ -31,7 +34,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_padding_16dp"
             android:layout_marginEnd="@dimen/margin_padding_16dp"
-            android:text="@string/system_default" />
+            android:text="@string/system_default"
+            android:visibility="invisible"
+            tools:visibility="visible" />
 
         <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/light_theme"
@@ -39,7 +44,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_padding_16dp"
             android:layout_marginEnd="@dimen/margin_padding_16dp"
-            android:text="@string/light" />
+            android:text="@string/light"
+            android:visibility="invisible"
+            tools:visibility="visible" />
 
         <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/dark_theme"
@@ -47,7 +54,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_padding_16dp"
             android:layout_marginEnd="@dimen/margin_padding_16dp"
-            android:text="@string/dark" />
+            android:text="@string/dark"
+            android:visibility="invisible"
+            tools:visibility="visible" />
 
         <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/grey_theme"
@@ -55,7 +64,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_padding_16dp"
             android:layout_marginEnd="@dimen/margin_padding_16dp"
-            android:text="@string/grey" />
+            android:text="@string/grey"
+            android:visibility="invisible"
+            tools:visibility="visible" />
 
         <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/blue_grey_theme"
@@ -63,7 +74,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_padding_16dp"
             android:layout_marginEnd="@dimen/margin_padding_16dp"
-            android:text="@string/blue_grey" />
+            android:text="@string/blue_grey"
+            android:visibility="invisible"
+            tools:visibility="visible" />
 
         <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/indigo_theme"
@@ -71,7 +84,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_padding_16dp"
             android:layout_marginEnd="@dimen/margin_padding_16dp"
-            android:text="@string/indigo" />
+            android:text="@string/indigo"
+            android:visibility="invisible"
+            tools:visibility="visible" />
 
         <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/light_green_theme"
@@ -79,7 +94,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_padding_16dp"
             android:layout_marginEnd="@dimen/margin_padding_16dp"
-            android:text="@string/light_green" />
+            android:text="@string/light_green"
+            android:visibility="invisible"
+            tools:visibility="visible" />
 
         <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/purple_theme"
@@ -87,7 +104,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_padding_16dp"
             android:layout_marginEnd="@dimen/margin_padding_16dp"
-            android:text="@string/purple" />
+            android:text="@string/purple"
+            android:visibility="invisible"
+            tools:visibility="visible" />
 
     </RadioGroup>
 
