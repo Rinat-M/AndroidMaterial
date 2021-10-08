@@ -3,7 +3,6 @@ package com.rino.nasaapp.ui.apod
 import android.os.Bundle
 import android.view.*
 import android.view.inputmethod.EditorInfo
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
@@ -14,10 +13,8 @@ import com.rino.nasaapp.databinding.ProgressBarAndErrorMsgBinding
 import com.rino.nasaapp.entities.DateParameter
 import com.rino.nasaapp.entities.ScreenState
 import com.rino.nasaapp.remote.entities.ApodDTO
-import com.rino.nasaapp.ui.navigation.BottomNavigationDrawerFragment
 import com.rino.nasaapp.utils.searchInWikipedia
 import com.rino.nasaapp.utils.showSnackBar
-import com.rino.nasaapp.utils.showToast
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ApodFragment : Fragment() {
@@ -60,8 +57,6 @@ class ApodFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setBottomAppBar()
-
         apodViewModel.state.observe(viewLifecycleOwner) { state ->
             state?.let { processData(it) }
         }
@@ -92,11 +87,6 @@ class ApodFragment : Fragment() {
         }
     }
 
-    private fun setBottomAppBar() {
-        val activity = requireActivity() as AppCompatActivity
-        activity.setSupportActionBar(binding.bottomAppBar)
-    }
-
     private fun processData(state: ScreenState<ApodDTO>) {
         when (state) {
             ScreenState.Loading -> {
@@ -119,7 +109,10 @@ class ApodFragment : Fragment() {
                         .error(R.drawable.ic_image)
                         .into(apodImage)
 
-                    apodCoordinatorLayout.showSnackBar("url: ${apodData.url}")
+                    apodCoordinatorLayout.showSnackBar(
+                        "url: ${apodData.url}",
+                        anchorViewId = binding.anchorGuideline.id
+                    )
 
                     currentApodTitle.text = apodData.title
                     currentApodExplanation.text = apodData.explanation
@@ -141,30 +134,6 @@ class ApodFragment : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.nav_menu, menu)
         super.onCreateOptionsMenu(menu, inflater)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.favorite_menu -> {
-                requireContext().showToast(R.string.favorite)
-                true
-            }
-            R.id.settings_menu -> {
-                requireContext().showToast(R.string.settings)
-                true
-            }
-            android.R.id.home -> {
-                activity?.let {
-                    BottomNavigationDrawerFragment().show(
-                        it.supportFragmentManager,
-                        BottomNavigationDrawerFragment.FRAGMENT_TAG
-                    )
-                }
-                true
-            }
-
-            else -> super.onOptionsItemSelected(item)
-        }
     }
 
     override fun onDestroyView() {

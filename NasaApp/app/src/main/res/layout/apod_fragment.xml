@@ -1,29 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/apod_coordinator_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.apod.ApodFragment">
+    tools:context=".ui.apod.ApodFragment"
+    tools:menu="@menu/menu_bottom_nav">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/apod_constraint_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/input_layout"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            style="?customOutlinedBox"
             android:layout_width="@dimen/match_constraint"
             android:layout_height="wrap_content"
             android:hint="@string/search_in_wikipedia"
-            android:padding="@dimen/margin_padding_4dp"
-            app:counterEnabled="true"
-            app:counterMaxLength="50"
-            app:endIconCheckable="true"
             app:endIconDrawable="@drawable/ic_wikipedia"
-            app:endIconMode="custom"
             app:helperText="@string/wiki_helper_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -40,15 +36,11 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
-            android:id="@+id/apod_title"
+            android:id="@+id/apod_header"
+            style="?attr/mainHeader"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_padding_4dp"
-            android:fontFamily="@font/pacifico"
             android:text="@string/apod"
-            android:textAlignment="center"
-            android:textSize="18sp"
-            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/input_layout" />
@@ -61,7 +53,7 @@
             android:paddingEnd="@dimen/margin_padding_8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/apod_title">
+            app:layout_constraintTop_toBottomOf="@id/apod_header">
 
             <com.google.android.material.chip.ChipGroup
                 android:id="@+id/dates_chip_group"
@@ -74,55 +66,28 @@
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/today_chip"
-                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    style="?attr/customChoiceChip"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/today"
-                    app:chipBackgroundColor="@color/chip_bg_states" />
+                    android:text="@string/today" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/yesterday_chip"
-                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    style="?attr/customChoiceChip"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/yesterday"
-                    app:chipBackgroundColor="@color/chip_bg_states" />
+                    android:text="@string/yesterday" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/before_yesterday_chip"
-                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    style="?attr/customChoiceChip"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/day_before_yesterday"
-                    app:chipBackgroundColor="@color/chip_bg_states" />
+                    android:text="@string/day_before_yesterday" />
 
             </com.google.android.material.chip.ChipGroup>
 
         </HorizontalScrollView>
-
-        <TextView
-            android:id="@+id/current_apod_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/acme"
-            android:textAlignment="center"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/chips_scroll_view"
-            tools:text="Sun Spot Hill" />
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/apod_image"
-            android:layout_width="@dimen/match_constraint"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_padding_8dp"
-            android:adjustViewBounds="true"
-            android:background="@color/blue_grey_100"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/current_apod_title"
-            app:srcCompat="@drawable/ic_image" />
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/explanation_scroll_view"
@@ -131,15 +96,40 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/apod_image">
+            app:layout_constraintTop_toBottomOf="@id/chips_scroll_view"
+            tools:ignore="SpeakableTextPresentCheck">
 
-            <TextView
-                android:id="@+id/current_apod_explanation"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:lineSpacingExtra="4sp"
-                android:padding="@dimen/margin_padding_8dp"
-                tools:text="Is this giant orange ball about to roll down that tree-lined hill? No, because the giant orange ball is actually the Sun. Our Solar System's central star was captured rising beyond a hill on Earth twelve days ago complete with a delightfully detailed foreground.  The Sun's disk showed five sunspots, quite a lot considering that during the solar minimum in solar activity of the past few years, most days showed no spots. A close look at the hill -- Sierra del Cid in Perter, Spain -- reveals not only silhouetted pine trees, but silhouetted people -- by coincidence three brothers of the photographer.  The trees and brothers were about 3.5-kilometers away during the morning of the well-planned, single-exposure image. A dark filter muted the usually brilliant Sun and brought up great detail on the lower sunspots.  Within a few minutes, the Sun rose far above the hill, while within a week, the sunspots rotated around the Sun, out of view. The captured scene, however, is now frozen in time for all to enjoy." />
+                android:orientation="vertical"
+                android:paddingBottom="?actionBarSize">
+
+                <TextView
+                    android:id="@+id/current_apod_title"
+                    style="?secondaryHeader"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="Sun Spot Hill" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/apod_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_padding_8dp"
+                    android:adjustViewBounds="true"
+                    android:background="@color/blue_grey_100"
+                    app:srcCompat="@drawable/ic_image" />
+
+                <TextView
+                    android:id="@+id/current_apod_explanation"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:lineSpacingExtra="4sp"
+                    android:padding="@dimen/margin_padding_8dp"
+                    tools:text="@string/apod_explanation_example" />
+
+            </LinearLayout>
 
         </androidx.core.widget.NestedScrollView>
 
@@ -151,29 +141,14 @@
 
         <include layout="@layout/progress_bar_and_error_msg" />
 
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/anchor_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.89" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-    <com.google.android.material.bottomappbar.BottomAppBar
-        android:id="@+id/bottom_app_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:backgroundTint="@color/colorPrimary"
-        app:fabAlignmentMode="center"
-        app:hideOnScroll="true"
-        app:layout_scrollFlags="scroll|enterAlways"
-        app:navigationIcon="@drawable/ic_menu" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/colorAccent"
-        android:contentDescription="FAB"
-        android:src="@drawable/ic_lightbulb"
-        android:tint="@color/black"
-        app:fabSize="normal"
-        app:layout_anchor="@id/bottom_app_bar" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
