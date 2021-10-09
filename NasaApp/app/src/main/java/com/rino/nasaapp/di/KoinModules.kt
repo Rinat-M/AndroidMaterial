@@ -10,6 +10,7 @@ import com.rino.nasaapp.ui.home.HomeViewModel
 import com.rino.nasaapp.ui.main.MainViewModel
 import com.rino.nasaapp.ui.mars.MarsViewModel
 import com.rino.nasaapp.ui.settings.SettingsViewModel
+import com.rino.nasaapp.ui.todo.TodoListViewModel
 import com.rino.nasaapp.wrappers.ThemeSharedPreferencesWrapper
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -35,4 +36,5 @@ val appModule = module {
     viewModel { SettingsViewModel(get()) }
     viewModel { EarthViewModel(get()) }
     viewModel { MarsViewModel(get()) }
+    viewModel { TodoListViewModel() }
 }

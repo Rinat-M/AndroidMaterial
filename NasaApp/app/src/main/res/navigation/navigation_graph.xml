@@ -24,6 +24,12 @@
         tools:layout="@layout/mars_fragment" />
 
     <fragment
+        android:id="@+id/navigation_todo"
+        android:name="com.rino.nasaapp.ui.todo.TodoListFragment"
+        android:label="@string/todo"
+        tools:layout="@layout/todo_list_fragment" />
+
+    <fragment
         android:id="@+id/navigation_settings"
         android:name="com.rino.nasaapp.ui.settings.SettingsFragment"
         android:label="@string/settings"
