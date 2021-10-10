@@ -25,6 +25,8 @@ class TodoListFragment : Fragment() {
 
     private val todoListViewModel: TodoListViewModel by viewModel()
 
+    private val todosAdapter = TodosAdapter()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -42,6 +44,8 @@ class TodoListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.todosRecyclerView.adapter = todosAdapter
 
         todoListViewModel.state.observe(viewLifecycleOwner) { state ->
             state?.let { processData(state) }
@@ -62,7 +66,7 @@ class TodoListFragment : Fragment() {
                     includeBinding.progressBar.isVisible = false
                     includeBinding.errorMsg.isVisible = false
 
-                    todosRecyclerView.adapter = TodosAdapter(state.data)
+                    todosAdapter.submitList(state.data)
                 }
             }
 

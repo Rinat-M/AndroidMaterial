@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.rino.nasaapp.R
 import com.rino.nasaapp.databinding.TodoListItemBinding
@@ -13,9 +15,7 @@ import com.rino.nasaapp.entities.Todo
 import com.rino.nasaapp.utils.toFormatString
 import com.rino.nasaapp.wrappers.ApplyThemeObserver
 
-class TodosAdapter(
-    private val todoList: List<Todo>
-) : RecyclerView.Adapter<TodosAdapter.TodoViewHolder>() {
+class TodosAdapter : ListAdapter<Todo, TodosAdapter.TodoViewHolder>(TodoDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodoViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -24,10 +24,8 @@ class TodosAdapter(
     }
 
     override fun onBindViewHolder(holder: TodoViewHolder, position: Int) {
-        holder.bind(todoList[position])
+        holder.bind(getItem(position))
     }
-
-    override fun getItemCount(): Int = todoList.size
 
     inner class TodoViewHolder(
         private val binding: TodoListItemBinding
@@ -59,4 +57,10 @@ class TodosAdapter(
         }
 
     }
+}
+
+class TodoDiffCallback : DiffUtil.ItemCallback<Todo>() {
+    override fun areItemsTheSame(oldItem: Todo, newItem: Todo): Boolean = oldItem.id == newItem.id
+
+    override fun areContentsTheSame(oldItem: Todo, newItem: Todo): Boolean = oldItem == newItem
 }
