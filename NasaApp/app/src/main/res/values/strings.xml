@@ -37,4 +37,5 @@
     <string name="chemistry_camera_description">Chemistry and Camera Complex</string>
     <string name="todo">ToDo</string>
     <string name="to_do_list">To-Do List</string>
+    <string name="search">Search</string>
 </resources>

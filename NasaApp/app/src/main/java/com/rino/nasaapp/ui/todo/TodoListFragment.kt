@@ -4,9 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.ItemTouchHelper
+import com.rino.nasaapp.R
 import com.rino.nasaapp.databinding.ProgressBarAndErrorMsgBinding
 import com.rino.nasaapp.databinding.TodoListFragmentBinding
 import com.rino.nasaapp.entities.ScreenState
@@ -69,11 +71,21 @@ class TodoListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initRecyclerView()
+
+        subscribeOn()
+
+        initSearchView()
+    }
+
+    private fun initRecyclerView() {
         binding.todosRecyclerView.adapter = todosAdapter
 
         itemTouchHelper = ItemTouchHelper(TodoListItemTouchHelperCallback(todosAdapter))
         itemTouchHelper.attachToRecyclerView(binding.todosRecyclerView)
+    }
 
+    private fun subscribeOn() {
         todoListViewModel.state.observe(viewLifecycleOwner) { state ->
             state?.let { processData(state) }
         }
@@ -107,6 +119,22 @@ class TodoListFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun initSearchView() {
+        val menuItem = binding.todosToolbar.menu.findItem(R.id.action_search)
+        val searchView = menuItem.actionView as SearchView
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean = true
+
+            override fun onQueryTextChange(query: String?): Boolean {
+                todoListViewModel.searchByQuery(query)
+                return true
+            }
+        })
+
+        searchView.maxWidth = Integer.MAX_VALUE
     }
 
     override fun onDestroyView() {

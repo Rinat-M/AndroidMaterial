@@ -14,6 +14,8 @@ interface TodoSource {
 
     fun moveTodo(fromPosition: Int, toPosition: Int)
 
+    fun searchTodo(query: String): List<Todo>
+
     fun getSize(): Int
 
     fun generateNewId(): Int

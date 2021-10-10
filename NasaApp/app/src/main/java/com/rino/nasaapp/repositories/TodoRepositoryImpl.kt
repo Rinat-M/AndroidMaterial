@@ -14,4 +14,7 @@ class TodoRepositoryImpl(
     override fun moveTodo(fromPosition: Int, toPosition: Int) =
         todoSource.moveTodo(fromPosition, toPosition)
 
+    override fun searchTodo(query: String): Result<List<Todo>> =
+        Result.success(todoSource.searchTodo(query))
+
 }

@@ -10,4 +10,6 @@ interface TodoRepository {
 
     fun moveTodo(fromPosition: Int, toPosition: Int)
 
+    fun searchTodo(query: String): Result<List<Todo>>
+
 }

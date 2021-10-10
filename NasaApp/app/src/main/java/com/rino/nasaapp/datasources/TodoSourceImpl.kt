@@ -11,8 +11,8 @@ class TodoSourceImpl : TodoSource {
         Todo(1, "Первая задача", "Первая задача в списке", Date(1633082400000), Priority.NORMAL),
         Todo(2, "Вторая задача", "Вторая задача в списке", Date(1633168800000), Priority.NORMAL),
         Todo(3, "Третья задача", "Третья задача в списке", Date(1633255200000), Priority.HIGH),
-        Todo(4, "Четвертая задача", "Третья задача в списке", Date(1633341600000), Priority.NORMAL),
-        Todo(5, "Пятая задача", "Третья задача в списке", Date(1633428000000), Priority.HIGH)
+        Todo(4, "Четвертая задача", "Четвертая задача в списке", Date(1633341600000), Priority.NORMAL),
+        Todo(5, "Пятая задача", "Пятая задача в списке", Date(1633428000000), Priority.HIGH)
     )
 
     override fun getTodos(): List<Todo> = todoList.toList()
@@ -32,6 +32,13 @@ class TodoSourceImpl : TodoSource {
         todoList.removeAt(fromPosition).apply {
             val newPositionIndex = if (toPosition > fromPosition) toPosition - 1 else toPosition
             todoList.add(newPositionIndex, this)
+        }
+    }
+
+    override fun searchTodo(query: String): List<Todo> {
+        return todoList.filter { todo ->
+            todo.title.contains(query, ignoreCase = true) or
+                    todo.text.contains(query, ignoreCase = true)
         }
     }
 

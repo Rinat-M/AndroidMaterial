@@ -17,14 +17,14 @@
             android:id="@+id/todos_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:layout_collapseMode="pin">
+            app:menu="@menu/todo_list_menu">
 
             <TextView
                 android:id="@+id/todos_header"
                 style="?attr/mainHeader"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_padding_8dp"
+                android:singleLine="true"
                 android:text="@string/to_do_list" />
 
         </com.google.android.material.appbar.MaterialToolbar>

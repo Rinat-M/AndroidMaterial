@@ -24,6 +24,7 @@
         <item name="bottomNavigationStyle">@style/BottomNavigationView</item>
         <item name="appBarBackgroundColor">@color/white</item>
         <item name="listItemBackgroundColor">@color/grey_50</item>
+        <item name="android:editTextColor">?colorOnSecondary</item>
     </style>
 
     <style name="GreyTheme" parent="Theme.NasaApp">
@@ -124,6 +125,8 @@
 
     <style name="AppBar" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
         <item name="android:background">?appBarBackgroundColor</item>
+        <item name="android:textColorPrimary">?colorOnSecondary</item>
+        <item name="android:textColorHint">?colorPrimary</item>
     </style>
 
     <style name="TodoTitleTextStyle" parent="@android:style/Widget.TextView">
