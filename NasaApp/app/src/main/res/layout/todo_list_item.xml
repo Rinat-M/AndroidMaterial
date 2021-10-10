@@ -32,8 +32,8 @@
             android:layout_margin="@dimen/margin_padding_16dp"
             android:ellipsize="end"
             android:maxLines="2"
-            app:layout_constraintLeft_toRightOf="@id/priority"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/drag_indicator"
+            app:layout_constraintStart_toEndOf="@id/priority"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Todo title" />
 
@@ -45,10 +45,19 @@
             android:layout_marginTop="@dimen/margin_padding_8dp"
             android:layout_marginEnd="@dimen/margin_padding_16dp"
             android:fontFamily="@font/bree_serif"
-            app:layout_constraintLeft_toRightOf="@id/priority"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/drag_indicator"
+            app:layout_constraintStart_toEndOf="@id/priority"
             app:layout_constraintTop_toBottomOf="@id/title"
             tools:text="09.10.2021 10:00" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/drag_indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_drag_indicator" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

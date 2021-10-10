@@ -9,4 +9,9 @@ class TodoRepositoryImpl(
 
     override fun getTodos(): Result<List<Todo>> = Result.success(todoSource.getTodos())
 
+    override fun removeTodo(position: Int): Todo = todoSource.removeTodo(position)
+
+    override fun moveTodo(fromPosition: Int, toPosition: Int) =
+        todoSource.moveTodo(fromPosition, toPosition)
+
 }

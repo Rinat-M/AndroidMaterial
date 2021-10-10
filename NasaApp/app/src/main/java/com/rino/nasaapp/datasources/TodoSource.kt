@@ -8,11 +8,11 @@ interface TodoSource {
 
     fun addTodo(todo: Todo): Int
 
-    fun removeTodo(id: Int): Boolean
-
-    fun removeTodo(todo: Todo): Boolean
+    fun removeTodo(position: Int): Todo
 
     fun saveTodo(todo: Todo)
+
+    fun moveTodo(fromPosition: Int, toPosition: Int)
 
     fun getSize(): Int
 

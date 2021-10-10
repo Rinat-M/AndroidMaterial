@@ -19,12 +19,20 @@ class TodoListViewModel(
     val state: LiveData<ScreenState<List<Todo>>> = _state
 
     fun fetchData() {
-        _state.value = ScreenState.Loading
-
         viewModelScope.launch(Dispatchers.IO) {
             todoRepository.getTodos()
                 .onSuccess { list -> _state.postValue(ScreenState.Success(list)) }
                 .onFailure { _state.postValue(ScreenState.Error(it)) }
         }
+    }
+
+    fun removeTodo(position: Int) {
+        todoRepository.removeTodo(position)
+        fetchData()
+    }
+
+    fun moveTodo(fromPosition: Int, toPosition: Int) {
+        todoRepository.moveTodo(fromPosition, toPosition)
+        fetchData()
     }
 }

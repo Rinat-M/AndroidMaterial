@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.ItemTouchHelper
 import com.rino.nasaapp.databinding.ProgressBarAndErrorMsgBinding
 import com.rino.nasaapp.databinding.TodoListFragmentBinding
 import com.rino.nasaapp.entities.ScreenState
@@ -25,7 +26,30 @@ class TodoListFragment : Fragment() {
 
     private val todoListViewModel: TodoListViewModel by viewModel()
 
-    private val todosAdapter = TodosAdapter()
+    private lateinit var itemTouchHelper: ItemTouchHelper
+
+    private val itemChangeListener: TodosAdapter.OnItemChangeListener by lazy {
+        object : TodosAdapter.OnItemChangeListener {
+            override fun onItemRemove(position: Int) {
+                todoListViewModel.removeTodo(position)
+            }
+
+            override fun onItemMove(fromPosition: Int, toPosition: Int) {
+                todoListViewModel.moveTodo(fromPosition, toPosition)
+            }
+
+        }
+    }
+
+    private val startDragListener: TodosAdapter.OnStartDragListener by lazy {
+        object : TodosAdapter.OnStartDragListener {
+            override fun onStartDrag(viewHolder: TodosAdapter.TodoViewHolder) {
+                itemTouchHelper.startDrag(viewHolder)
+            }
+        }
+    }
+
+    private val todosAdapter = TodosAdapter(itemChangeListener, startDragListener)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,6 +70,9 @@ class TodoListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.todosRecyclerView.adapter = todosAdapter
+
+        itemTouchHelper = ItemTouchHelper(TodoListItemTouchHelperCallback(todosAdapter))
+        itemTouchHelper.attachToRecyclerView(binding.todosRecyclerView)
 
         todoListViewModel.state.observe(viewLifecycleOwner) { state ->
             state?.let { processData(state) }

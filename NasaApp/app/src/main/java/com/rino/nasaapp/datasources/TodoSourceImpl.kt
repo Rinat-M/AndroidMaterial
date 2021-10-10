@@ -8,9 +8,11 @@ import kotlin.collections.ArrayList
 class TodoSourceImpl : TodoSource {
 
     private val todoList: ArrayList<Todo> = arrayListOf(
-        Todo(1, "Первая задача", "Первая задача в списке", Date(), Priority.NORMAL),
-        Todo(2, "Вторая задача", "Вторая задача в списке", Date(), Priority.NORMAL),
-        Todo(3, "Третья задача", "Третья задача в списке", Date(), Priority.HIGH)
+        Todo(1, "Первая задача", "Первая задача в списке", Date(1633082400000), Priority.NORMAL),
+        Todo(2, "Вторая задача", "Вторая задача в списке", Date(1633168800000), Priority.NORMAL),
+        Todo(3, "Третья задача", "Третья задача в списке", Date(1633255200000), Priority.HIGH),
+        Todo(4, "Четвертая задача", "Третья задача в списке", Date(1633341600000), Priority.NORMAL),
+        Todo(5, "Пятая задача", "Третья задача в списке", Date(1633428000000), Priority.HIGH)
     )
 
     override fun getTodos(): List<Todo> = todoList.toList()
@@ -20,15 +22,17 @@ class TodoSourceImpl : TodoSource {
         return getSize() - 1
     }
 
-    override fun removeTodo(id: Int): Boolean =
-        todoList.firstOrNull { it.id == id }?.let { todo ->
-            todoList.remove(todo)
-        } ?: false
-
-    override fun removeTodo(todo: Todo): Boolean = todoList.remove(todo)
+    override fun removeTodo(position: Int) = todoList.removeAt(position)
 
     override fun saveTodo(todo: Todo) {
         todoList.firstOrNull { it.id == todo.id }
+    }
+
+    override fun moveTodo(fromPosition: Int, toPosition: Int) {
+        todoList.removeAt(fromPosition).apply {
+            val newPositionIndex = if (toPosition > fromPosition) toPosition - 1 else toPosition
+            todoList.add(newPositionIndex, this)
+        }
     }
 
     override fun getSize(): Int = todoList.size
