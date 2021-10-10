@@ -13,6 +13,7 @@ import androidx.transition.Transition
 import androidx.transition.TransitionManager
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.delay
+import java.text.SimpleDateFormat
 import java.util.*
 
 fun View.showSnackBar(
@@ -89,4 +90,9 @@ suspend fun ViewGroup.applyAnimation(
     delay(timeMillis)
     TransitionManager.beginDelayedTransition(this, transition)
     itemView.isVisible = !itemView.isVisible
+}
+
+fun Date.toFormatString(format: String, locale: Locale = Locale.getDefault()): String {
+    val formatter = SimpleDateFormat(format, locale)
+    return formatter.format(this)
 }

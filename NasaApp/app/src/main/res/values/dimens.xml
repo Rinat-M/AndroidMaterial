@@ -7,4 +7,10 @@
     <dimen name="main_header_text_size">18sp</dimen>
     <dimen name="secondary_header_text_size">14sp</dimen>
     <dimen name="mars_app_bar_layout_height">165dp</dimen>
+    <dimen name="todo_item_height">96dp</dimen>
+    <dimen name="margin_padding_3dp">3dp</dimen>
+    <dimen name="todo_card_corner_radius">10dp</dimen>
+    <dimen name="todo_card_elevation">3dp</dimen>
+    <dimen name="todo_priority_width">16dp</dimen>
+    <dimen name="todo_title_text_size">14sp</dimen>
 </resources>
