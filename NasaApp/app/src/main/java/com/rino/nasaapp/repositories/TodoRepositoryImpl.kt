@@ -17,4 +17,7 @@ class TodoRepositoryImpl(
     override fun searchTodo(query: String): Result<List<Todo>> =
         Result.success(todoSource.searchTodo(query))
 
+    override fun saveTodo(todo: Todo) = todoSource.saveTodo(todo)
+
+
 }

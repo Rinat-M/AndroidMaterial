@@ -17,15 +17,17 @@ class TodoSourceImpl : TodoSource {
 
     override fun getTodos(): List<Todo> = todoList.toList()
 
-    override fun addTodo(todo: Todo): Int {
-        todoList.add(todo)
-        return getSize() - 1
-    }
+    override fun addTodo(todo: Todo): Boolean = todoList.add(todo)
 
     override fun removeTodo(position: Int) = todoList.removeAt(position)
 
     override fun saveTodo(todo: Todo) {
-        todoList.firstOrNull { it.id == todo.id }
+        val changedTodo = todoList.firstOrNull { it.id == todo.id }
+
+        changedTodo?.let {
+            val index = todoList.indexOf(it)
+            todoList[index] = todo
+        }
     }
 
     override fun moveTodo(fromPosition: Int, toPosition: Int) {

@@ -6,7 +6,7 @@ interface TodoSource {
 
     fun getTodos(): List<Todo>
 
-    fun addTodo(todo: Todo): Int
+    fun addTodo(todo: Todo): Boolean
 
     fun removeTodo(position: Int): Todo
 

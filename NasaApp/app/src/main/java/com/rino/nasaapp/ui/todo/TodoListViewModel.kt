@@ -22,6 +22,8 @@ class TodoListViewModel(
 
     private var searchJob: Job? = null
 
+    var selectedTodo: Todo? = null
+
     fun fetchData() {
         viewModelScope.launch(Dispatchers.IO) {
             todoRepository.getTodos()
@@ -56,4 +58,10 @@ class TodoListViewModel(
             }
         }
     }
+
+    fun saveTodo(todo: Todo) {
+        todoRepository.saveTodo(todo)
+        fetchData()
+    }
+
 }

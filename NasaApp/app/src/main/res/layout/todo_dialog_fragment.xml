@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/todo_dialog_height">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_vertical_center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <EditText
+        android:id="@+id/todo_title_edit_text"
+        style="@style/TodoTitleTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autofillHints=""
+        android:background="@android:color/transparent"
+        android:hint="@string/to_do_title"
+        android:inputType="text"
+        android:padding="@dimen/margin_padding_16dp"
+        android:saveEnabled="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/todo_created_at_text_view"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_height="@dimen/match_constraint"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="@+id/todo_priority_check_box"
+        app:layout_constraintEnd_toEndOf="@id/guideline_vertical_center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/todo_title_edit_text"
+        tools:text="01.10.2021 12:06" />
+
+    <CheckBox
+        android:id="@+id/todo_priority_check_box"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layoutDirection="rtl"
+        android:saveEnabled="false"
+        android:text="@string/high_priority"
+        app:layout_constraintLeft_toRightOf="@id/guideline_vertical_center"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/todo_title_edit_text" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:layout_marginStart="@dimen/margin_padding_8dp"
+        android:layout_marginEnd="@dimen/margin_padding_8dp"
+        android:background="?colorOnSecondary"
+        app:layout_constraintBottom_toTopOf="@id/todo_text_edit_text"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/todo_priority_check_box" />
+
+    <EditText
+        android:id="@+id/todo_text_edit_text"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_height="@dimen/todo_description_dialog_height"
+        android:autofillHints=""
+        android:background="@android:color/transparent"
+        android:gravity="start"
+        android:hint="@string/to_do_description"
+        android:inputType="textMultiLine"
+        android:padding="@dimen/margin_padding_8dp"
+        android:saveEnabled="false"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/todo_priority_check_box" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -38,4 +38,7 @@
     <string name="todo">ToDo</string>
     <string name="to_do_list">To-Do List</string>
     <string name="search">Search</string>
+    <string name="to_do_title">To-do title</string>
+    <string name="high_priority">High priority</string>
+    <string name="to_do_description">To-do description</string>
 </resources>

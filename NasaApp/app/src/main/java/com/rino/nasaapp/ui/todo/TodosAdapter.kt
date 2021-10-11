@@ -20,7 +20,8 @@ import com.rino.nasaapp.wrappers.ApplyThemeObserver
 
 class TodosAdapter(
     private val itemChangeListener: OnItemChangeListener,
-    private val dragListener: OnStartDragListener
+    private val dragListener: OnStartDragListener,
+    private val itemClickListener: OnItemClickListener
 ) : ListAdapter<Todo, TodosAdapter.TodoViewHolder>(TodoDiffCallback()),
     ItemTouchHelperAdapter {
 
@@ -52,6 +53,8 @@ class TodosAdapter(
                     }
                     false
                 }
+
+                root.setOnClickListener { itemClickListener.onItemClick(todo) }
             }
 
         }
@@ -97,6 +100,10 @@ class TodosAdapter(
 
     interface OnStartDragListener {
         fun onStartDrag(viewHolder: TodoViewHolder)
+    }
+
+    interface OnItemClickListener {
+        fun onItemClick(todo: Todo)
     }
 }
 

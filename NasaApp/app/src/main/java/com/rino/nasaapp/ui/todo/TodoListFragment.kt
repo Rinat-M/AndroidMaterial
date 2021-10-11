@@ -51,7 +51,18 @@ class TodoListFragment : Fragment() {
         }
     }
 
-    private val todosAdapter = TodosAdapter(itemChangeListener, startDragListener)
+    private val onItemClickListener: TodosAdapter.OnItemClickListener by lazy {
+        object : TodosAdapter.OnItemClickListener {
+            override fun onItemClick(todo: Todo) {
+                todoListViewModel.selectedTodo = todo
+                val dialogFragment = TodoBottomSheetDialogFragment.newInstance()
+                dialogFragment.show(childFragmentManager, null)
+            }
+        }
+    }
+
+    private val todosAdapter =
+        TodosAdapter(itemChangeListener, startDragListener, onItemClickListener)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
