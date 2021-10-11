@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.rino.nasaapp.ui.home.HomeFragment"
+        android:label="@string/home"
+        tools:layout="@layout/home_fragment" />
+
+    <fragment
+        android:id="@id/navigation_earth"
+        android:name="com.rino.nasaapp.ui.earth.EarthFragment"
+        android:label="@string/earth"
+        tools:layout="@layout/earth_fragment" />
+
+    <fragment
+        android:id="@+id/navigation_mars"
+        android:name="com.rino.nasaapp.ui.mars.MarsFragment"
+        android:label="@string/mars"
+        tools:layout="@layout/mars_fragment" />
+
+    <fragment
+        android:id="@+id/navigation_settings"
+        android:name="com.rino.nasaapp.ui.settings.SettingsFragment"
+        android:label="@string/settings"
+        tools:layout="@layout/settings_fragment" />
+
+</navigation>

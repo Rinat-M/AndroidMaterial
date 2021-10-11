@@ -3,7 +3,7 @@
     <style name="Theme.NasaApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/grey_900</item>
-        <item name="colorPrimaryVariant">@color/grey_800</item>
+        <item name="colorPrimaryVariant">@color/grey_700</item>
         <item name="colorOnPrimary">@color/black</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
@@ -21,6 +21,7 @@
         <item name="bottomAppBar">@style/BottomAppBar</item>
         <item name="colorControlNormal">?colorOnSecondary</item>
         <item name="android:textColor">?colorOnSecondary</item>
+        <item name="bottomNavigationStyle">@style/BottomNavigationView</item>
     </style>
 
     <style name="MainHeader" parent="Base.Widget.MaterialComponents.TextView">
@@ -54,6 +55,15 @@
         <item name="android:backgroundTint">?colorPrimary</item>
         <item name="fabAlignmentMode">end</item>
         <item name="navigationIcon">@drawable/ic_menu</item>
+    </style>
+
+    <style name="BottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.BottomNavigationView</item>
+    </style>
+
+    <style name="ThemeOverlay.App.BottomNavigationView" parent="">
+        <item name="colorOnSurface">?colorPrimaryVariant</item>
+        <item name="colorPrimary">@color/grey_100</item>
     </style>
 
 </resources>

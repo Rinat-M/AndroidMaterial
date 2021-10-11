@@ -2,17 +2,23 @@ package com.rino.nasaapp.di
 
 import com.rino.nasaapp.datasources.DataSource
 import com.rino.nasaapp.datasources.RemoteDataSourceImpl
+import com.rino.nasaapp.providers.StringsProvider
 import com.rino.nasaapp.repositories.NasaRepository
 import com.rino.nasaapp.repositories.NasaRepositoryImpl
-import com.rino.nasaapp.ui.apod.ApodViewModel
+import com.rino.nasaapp.ui.earth.EarthViewModel
+import com.rino.nasaapp.ui.home.HomeViewModel
 import com.rino.nasaapp.ui.main.MainViewModel
+import com.rino.nasaapp.ui.mars.MarsViewModel
 import com.rino.nasaapp.ui.settings.SettingsViewModel
 import com.rino.nasaapp.wrappers.ThemeSharedPreferencesWrapper
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val appModule = module {
-    single<DataSource> { RemoteDataSourceImpl(get()) }
+    // Providers
+    single { StringsProvider(get()) }
+
+    single<DataSource> { RemoteDataSourceImpl(get(), get()) }
     single<NasaRepository> { NasaRepositoryImpl(get()) }
 
     // Network
@@ -24,7 +30,9 @@ val appModule = module {
     single { ThemeSharedPreferencesWrapper(get()) }
 
     // View models
-    viewModel { ApodViewModel(get()) }
+    viewModel { HomeViewModel(get()) }
     viewModel { MainViewModel(get()) }
     viewModel { SettingsViewModel(get()) }
+    viewModel { EarthViewModel(get()) }
+    viewModel { MarsViewModel(get()) }
 }

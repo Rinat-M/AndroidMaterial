@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.annotation.StringRes
 import com.google.android.material.snackbar.Snackbar
+import java.util.*
 
 fun View.showSnackBar(
     @StringRes stringId: Int,
@@ -66,4 +67,11 @@ fun Context.isDarkMode(): Boolean {
         Configuration.UI_MODE_NIGHT_YES -> true // Night mode is active, we're using dark theme
         else -> false
     }
+}
+
+fun Date.beginOfMonth(): Date {
+    val calendar = Calendar.getInstance()
+    calendar.time = this
+    calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), 1)
+    return calendar.time
 }
