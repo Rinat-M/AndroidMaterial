@@ -10,6 +10,8 @@ interface TodoSource {
 
     fun removeTodo(position: Int): Todo
 
+    fun removeTodo(todo: Todo)
+
     fun saveTodo(todo: Todo)
 
     fun moveTodo(fromPosition: Int, toPosition: Int)

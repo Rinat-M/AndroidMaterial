@@ -8,6 +8,8 @@ interface TodoRepository {
 
     fun removeTodo(position: Int): Todo
 
+    fun removeTodo(todo: Todo)
+
     fun moveTodo(fromPosition: Int, toPosition: Int)
 
     fun searchTodo(query: String): Result<List<Todo>>

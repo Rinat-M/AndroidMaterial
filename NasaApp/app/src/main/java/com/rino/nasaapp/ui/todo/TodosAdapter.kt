@@ -89,11 +89,11 @@ class TodosAdapter(
     }
 
     override fun onItemDismiss(position: Int) {
-        itemChangeListener.onItemRemove(position)
+        itemChangeListener.onItemRemove(getItem(position))
     }
 
     interface OnItemChangeListener {
-        fun onItemRemove(position: Int)
+        fun onItemRemove(todo: Todo)
 
         fun onItemMove(fromPosition: Int, toPosition: Int)
     }

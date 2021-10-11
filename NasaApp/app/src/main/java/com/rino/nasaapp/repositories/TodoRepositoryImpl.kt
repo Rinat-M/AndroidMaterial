@@ -11,6 +11,8 @@ class TodoRepositoryImpl(
 
     override fun removeTodo(position: Int): Todo = todoSource.removeTodo(position)
 
+    override fun removeTodo(todo: Todo) = todoSource.removeTodo(todo)
+
     override fun moveTodo(fromPosition: Int, toPosition: Int) =
         todoSource.moveTodo(fromPosition, toPosition)
 

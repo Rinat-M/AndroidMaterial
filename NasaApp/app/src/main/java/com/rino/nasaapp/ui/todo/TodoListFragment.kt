@@ -32,8 +32,8 @@ class TodoListFragment : Fragment() {
 
     private val itemChangeListener: TodosAdapter.OnItemChangeListener by lazy {
         object : TodosAdapter.OnItemChangeListener {
-            override fun onItemRemove(position: Int) {
-                todoListViewModel.removeTodo(position)
+            override fun onItemRemove(todo: Todo) {
+                todoListViewModel.removeTodo(todo)
             }
 
             override fun onItemMove(fromPosition: Int, toPosition: Int) {

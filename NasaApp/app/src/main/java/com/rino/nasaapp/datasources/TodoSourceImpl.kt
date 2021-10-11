@@ -21,6 +21,11 @@ class TodoSourceImpl : TodoSource {
 
     override fun removeTodo(position: Int) = todoList.removeAt(position)
 
+    override fun removeTodo(todo: Todo) {
+        val foundTodo = todoList.firstOrNull { it.id == todo.id }
+        foundTodo?.let { todoList.remove(foundTodo) }
+    }
+
     override fun saveTodo(todo: Todo) {
         val changedTodo = todoList.firstOrNull { it.id == todo.id }
 

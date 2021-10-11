@@ -32,8 +32,8 @@ class TodoListViewModel(
         }
     }
 
-    fun removeTodo(position: Int) {
-        todoRepository.removeTodo(position)
+    fun removeTodo(todo: Todo) {
+        todoRepository.removeTodo(todo)
         fetchData()
     }
 
