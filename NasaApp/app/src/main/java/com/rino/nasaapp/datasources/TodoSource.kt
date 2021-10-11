@@ -21,4 +21,7 @@ interface TodoSource {
     fun getSize(): Int
 
     fun generateNewId(): Int
+
+    fun generateTodo(): Todo
+
 }

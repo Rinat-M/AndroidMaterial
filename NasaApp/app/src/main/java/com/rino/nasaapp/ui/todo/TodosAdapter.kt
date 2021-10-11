@@ -1,7 +1,6 @@
 package com.rino.nasaapp.ui.todo
 
 import android.annotation.SuppressLint
-import android.graphics.Color
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -75,11 +74,9 @@ class TodosAdapter(
         }
 
         override fun onItemSelected() {
-            binding.root.setBackgroundColor(Color.LTGRAY)
         }
 
         override fun onItemClear() {
-            binding.root.setBackgroundColor(0)
         }
 
     }

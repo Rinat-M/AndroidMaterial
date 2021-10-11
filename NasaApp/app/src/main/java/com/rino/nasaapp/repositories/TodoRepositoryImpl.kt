@@ -21,5 +21,6 @@ class TodoRepositoryImpl(
 
     override fun saveTodo(todo: Todo) = todoSource.saveTodo(todo)
 
+    override fun generateTodo(): Todo = todoSource.generateTodo()
 
 }

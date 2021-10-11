@@ -15,4 +15,7 @@ interface TodoRepository {
     fun searchTodo(query: String): Result<List<Todo>>
 
     fun saveTodo(todo: Todo)
+
+    fun generateTodo(): Todo
+
 }

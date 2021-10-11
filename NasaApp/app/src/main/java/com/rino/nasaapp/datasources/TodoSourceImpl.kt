@@ -54,4 +54,10 @@ class TodoSourceImpl : TodoSource {
     override fun generateNewId(): Int =
         todoList.maxOfOrNull { it.id }?.let { lastId -> lastId + 1 } ?: 1
 
+    override fun generateTodo(): Todo {
+        val generatedTodo = Todo(generateNewId(), "", "", Date(), Priority.NORMAL)
+        todoList.add(generatedTodo)
+        return generatedTodo
+    }
+
 }

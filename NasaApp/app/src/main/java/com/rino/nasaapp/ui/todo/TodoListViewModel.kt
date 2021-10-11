@@ -64,4 +64,8 @@ class TodoListViewModel(
         fetchData()
     }
 
+    fun generateTodo() {
+        selectedTodo = todoRepository.generateTodo()
+    }
+
 }

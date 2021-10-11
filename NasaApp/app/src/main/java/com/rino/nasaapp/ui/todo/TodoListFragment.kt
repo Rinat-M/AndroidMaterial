@@ -87,6 +87,12 @@ class TodoListFragment : Fragment() {
         subscribeOn()
 
         initSearchView()
+
+        binding.fabButton.setOnClickListener {
+            todoListViewModel.generateTodo()
+            val dialogFragment = TodoBottomSheetDialogFragment.newInstance()
+            dialogFragment.show(childFragmentManager, null)
+        }
     }
 
     private fun initRecyclerView() {
