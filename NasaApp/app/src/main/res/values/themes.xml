@@ -25,6 +25,7 @@
         <item name="appBarBackgroundColor">@color/white</item>
         <item name="listItemBackgroundColor">@color/grey_50</item>
         <item name="android:editTextColor">?colorOnSecondary</item>
+        <item name="android:fontFamily">@font/montserrat</item>
     </style>
 
     <style name="GreyTheme" parent="Theme.NasaApp">
