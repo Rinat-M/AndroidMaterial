@@ -105,7 +105,7 @@ class HomeFragment : Fragment() {
                     Glide.with(requireContext())
                         .load(apodData.url)
                         .placeholder(circularProgressDrawable)
-                        .error(R.drawable.ic_report_problem)
+                        .error(R.drawable.ic_network_error)
                         .into(apodImage)
 
                     apodCoordinatorLayout.showSnackBar("url: ${apodData.url}")
