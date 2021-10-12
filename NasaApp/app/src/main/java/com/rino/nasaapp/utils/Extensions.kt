@@ -3,10 +3,16 @@ package com.rino.nasaapp.utils
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
+import android.graphics.Typeface.BOLD
 import android.net.Uri
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
+import android.text.style.StyleSpan
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.annotation.ColorInt
 import androidx.annotation.StringRes
 import androidx.core.view.isVisible
 import androidx.transition.Transition
@@ -95,4 +101,72 @@ suspend fun ViewGroup.applyAnimation(
 fun Date.toFormatString(format: String, locale: Locale = Locale.getDefault()): String {
     val formatter = SimpleDateFormat(format, locale)
     return formatter.format(this)
+}
+
+/**
+ * Get all occurrences of a string
+ * @return List of pairs with startIndex and endIndex of a string
+ */
+fun String.getAllOccurrencesOfString(query: String): List<Pair<Int, Int>> {
+    val result = arrayListOf<Pair<Int, Int>>()
+
+    var startIndex = 0
+    var endIndex: Int
+
+    do {
+        startIndex = this.indexOf(query, startIndex, ignoreCase = true)
+
+        if (startIndex == -1) {
+            break
+        }
+
+        endIndex = this.indexOf(" ", startIndex, ignoreCase = true)
+
+        if (endIndex == -1) {
+            endIndex = this.length
+        }
+
+        result.add(Pair(startIndex, endIndex))
+
+        startIndex = endIndex + 1
+    } while (true)
+
+    return result
+}
+
+/**
+ * Get SpannableString with highlighted words
+ * @param words - list of words to highlighting
+ * @param color - color of highlighting
+ * @param highlightInBold - highlight in bold
+ * @return SpannableString with highlighted words in the specified color
+ */
+fun String.getSpannableWithHighlightedWords(
+    words: List<String>,
+    @ColorInt color: Int,
+    highlightInBold: Boolean = true
+): SpannableString {
+    val listOfOccurrences = words.map { word ->
+        this.getAllOccurrencesOfString(word)
+    }.flatten()
+
+    return SpannableString(this).apply {
+        listOfOccurrences.forEach { pair ->
+            this.setSpan(
+                ForegroundColorSpan(color),
+                pair.first,
+                pair.second,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+
+            if (highlightInBold) {
+                this.setSpan(
+                    StyleSpan(BOLD),
+                    pair.first,
+                    pair.second,
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
+            }
+        }
+    }
 }

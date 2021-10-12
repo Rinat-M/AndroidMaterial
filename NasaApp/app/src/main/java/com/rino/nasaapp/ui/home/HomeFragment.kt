@@ -1,7 +1,10 @@
 package com.rino.nasaapp.ui.home
 
+import android.graphics.Color
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -13,6 +16,7 @@ import com.rino.nasaapp.databinding.ProgressBarAndErrorMsgBinding
 import com.rino.nasaapp.entities.DateParameter
 import com.rino.nasaapp.entities.ScreenState
 import com.rino.nasaapp.remote.entities.ApodDTO
+import com.rino.nasaapp.utils.getSpannableWithHighlightedWords
 import com.rino.nasaapp.utils.searchInWikipedia
 import com.rino.nasaapp.utils.showSnackBar
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -111,7 +115,12 @@ class HomeFragment : Fragment() {
                     apodCoordinatorLayout.showSnackBar("url: ${apodData.url}")
 
                     currentApodTitle.text = apodData.title
+
+                    val wordsToHighlight =
+                        listOf("fireball", "meteor", "moon", "earth", "solar", "system", "astro")
+
                     currentApodExplanation.text = apodData.explanation
+                        .getSpannableWithHighlightedWords(wordsToHighlight, Color.RED)
                 }
             }
 
