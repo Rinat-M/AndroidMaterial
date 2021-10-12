@@ -105,7 +105,8 @@ fun Date.toFormatString(format: String, locale: Locale = Locale.getDefault()): S
 
 /**
  * Get all occurrences of a string
- * @return List of pairs with startIndex and endIndex of a string
+ * @param query - search word
+ * @return List of pairs with startIndex and endIndex of a search word
  */
 fun String.getAllOccurrencesOfString(query: String): List<Pair<Int, Int>> {
     val result = arrayListOf<Pair<Int, Int>>()
