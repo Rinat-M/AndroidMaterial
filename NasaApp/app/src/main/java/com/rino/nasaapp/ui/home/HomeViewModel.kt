@@ -22,6 +22,8 @@ class HomeViewModel(
     var dateParameter: DateParameter = DateParameter.TODAY
 
     fun fetchData() {
+        _state.value = ScreenState.Loading
+
         viewModelScope.launch(Dispatchers.IO) {
             nasaRepository.getAstronomyPictureOfTheDay(dateParameter.toDateString())
                 .onSuccess { it?.let { apodDTO -> _state.postValue(ScreenState.Success(apodDTO)) } }

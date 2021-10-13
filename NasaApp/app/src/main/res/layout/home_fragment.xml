@@ -8,10 +8,22 @@
     tools:context=".ui.home.HomeFragment"
     tools:menu="@menu/bottom_navigation_menu">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/apod_constraint_layout"
+    <androidx.constraintlayout.motion.widget.MotionLayout
+        android:id="@+id/motion_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layoutDescription="@xml/home_fragment_scene_01">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/wiki_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_padding_16dp"
+            android:layout_marginEnd="@dimen/margin_padding_16dp"
+            android:padding="@dimen/margin_padding_8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_wikipedia" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/input_layout"
@@ -19,11 +31,7 @@
             android:layout_width="@dimen/match_constraint"
             android:layout_height="wrap_content"
             android:hint="@string/search_in_wikipedia"
-            app:endIconDrawable="@drawable/ic_wikipedia"
-            app:helperText="@string/wiki_helper_text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:endIconDrawable="@drawable/ic_wikipedia">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/input_edit_text"
@@ -35,6 +43,13 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/top_barrier"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="input_layout, wiki_icon" />
+
         <TextView
             android:id="@+id/apod_header"
             style="?attr/mainHeader"
@@ -43,7 +58,7 @@
             android:text="@string/apod"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/input_layout" />
+            app:layout_constraintTop_toBottomOf="@id/top_barrier" />
 
         <HorizontalScrollView
             android:id="@+id/chips_scroll_view"
@@ -136,11 +151,10 @@
             android:id="@+id/visibilityGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:constraint_referenced_ids="apod_image,current_apod_title,explanation_scroll_view" />
+            app:constraint_referenced_ids="explanation_scroll_view" />
 
         <include layout="@layout/progress_bar_and_error_msg" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
+    </androidx.constraintlayout.motion.widget.MotionLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
