@@ -2,18 +2,24 @@ package com.rino.nasaapp.ui.earth
 
 import android.app.DatePickerDialog
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.viewModelScope
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
+import androidx.transition.*
 import com.bumptech.glide.Glide
 import com.rino.nasaapp.R
 import com.rino.nasaapp.databinding.EarthFragmentBinding
 import com.rino.nasaapp.databinding.ProgressBarAndErrorMsgBinding
 import com.rino.nasaapp.entities.ScreenState
+import com.rino.nasaapp.utils.applyAnimation
 import com.rino.nasaapp.utils.showSnackBar
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.SimpleDateFormat
 import java.util.*
@@ -43,6 +49,8 @@ class EarthFragment : Fragment() {
     private val calendar = Calendar.getInstance()
     private val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
 
+    private var isExpanded = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -64,6 +72,10 @@ class EarthFragment : Fragment() {
         subscribeOn()
 
         initDatePicker()
+
+        initAnimation()
+
+        initImageZoomAnimation()
     }
 
     private fun subscribeOn() {
@@ -101,6 +113,44 @@ class EarthFragment : Fragment() {
         }
     }
 
+    private fun initAnimation() {
+        earthViewModel.viewModelScope.launch {
+            binding.constraintLayout.apply {
+                applyAnimation(Slide(Gravity.END), binding.earthHeader, 150)
+                applyAnimation(Slide(Gravity.START), binding.dateFilter, 150)
+            }
+        }
+    }
+
+    private fun initImageZoomAnimation() {
+        binding.image.setOnClickListener {
+            isExpanded = !isExpanded
+
+            val transition = TransitionSet()
+                .addTransition(ChangeBounds())
+                .addTransition(ChangeImageTransform())
+
+            TransitionManager.beginDelayedTransition(binding.coordinatorLayout, transition)
+
+            with(binding.image) {
+                val params: ViewGroup.LayoutParams = layoutParams
+                params.height = if (isExpanded) {
+                    ViewGroup.LayoutParams.MATCH_PARENT
+                } else {
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+                }
+
+                layoutParams = params
+
+                scaleType = if (isExpanded) {
+                    ImageView.ScaleType.CENTER_CROP
+                } else {
+                    ImageView.ScaleType.FIT_CENTER
+                }
+            }
+        }
+    }
+
     private fun processData(state: ScreenState<String>) {
         when (state) {
             ScreenState.Loading -> {
@@ -121,7 +171,7 @@ class EarthFragment : Fragment() {
                         .error(R.drawable.ic_report_problem)
                         .into(image)
 
-                    container.showSnackBar("url: ${state.data}")
+                    coordinatorLayout.showSnackBar("url: ${state.data}")
                 }
             }
 
