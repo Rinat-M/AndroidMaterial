@@ -135,4 +135,14 @@
         <item name="android:fontFamily">@font/russo_one</item>
     </style>
 
+    <style name="Theme.NasaApp.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/grey_800</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_spaceship_anim</item>
+        <item name="windowSplashScreenAnimationDuration">1000</item>
+        <item name="postSplashScreenTheme">@style/Theme.NasaApp</item>
+        <item name="android:windowSplashScreenBrandingImage" tools:targetApi="31">
+            @drawable/splash_branding_image
+        </item>
+    </style>
+
 </resources>
