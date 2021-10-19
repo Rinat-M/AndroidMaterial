@@ -177,7 +177,7 @@ class MarsFragment : Fragment() {
                     Glide.with(requireContext())
                         .load(state.data)
                         .placeholder(circularProgressDrawable)
-                        .error(R.drawable.ic_image)
+                        .error(R.drawable.ic_network_error)
                         .into(image)
 
                     coordinatorLayout.showSnackBar("url: ${state.data}")

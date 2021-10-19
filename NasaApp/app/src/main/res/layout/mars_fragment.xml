@@ -158,7 +158,8 @@
                 style="?secondaryHeader"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_padding_16dp"
+                android:layout_marginTop="@dimen/margin_padding_8dp"
+                android:layout_marginBottom="@dimen/margin_padding_8dp"
                 android:text="@string/front_camera_description"
                 android:textAlignment="center" />
 
