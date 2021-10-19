@@ -1,5 +1,6 @@
 package com.rino.nasaapp.ui.main
 
+import android.content.res.Resources
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -46,6 +47,8 @@ class MainActivity : AppCompatActivity(), ApplyThemeObserver {
     override fun applyThemeNow() {
         recreate()
     }
+
+    override fun getCurrentTheme(): Resources.Theme? = this.applicationContext.theme
 
     override fun onSupportNavigateUp(): Boolean {
         onBackPressedDispatcher.onBackPressed()

@@ -6,7 +6,7 @@
         <item name="colorPrimaryVariant">@color/grey_700</item>
         <item name="colorOnPrimary">@color/black</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondary">@color/deep_orange_500</item>
         <item name="colorSecondaryVariant">@color/teal_200</item>
         <item name="colorOnSecondary">@color/white</item>
         <!-- Status bar color. -->
@@ -23,6 +23,8 @@
         <item name="android:textColor">?colorOnSecondary</item>
         <item name="bottomNavigationStyle">@style/BottomNavigationView</item>
         <item name="appBarBackgroundColor">@color/black</item>
+        <item name="listItemBackgroundColor">@color/grey_700</item>
+        <item name="android:editTextColor">?colorOnSecondary</item>
     </style>
 
     <style name="MainHeader" parent="Base.Widget.MaterialComponents.TextView">
@@ -69,6 +71,13 @@
 
     <style name="AppBar" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
         <item name="android:background">?appBarBackgroundColor</item>
+        <item name="android:textColorPrimary">?colorOnSecondary</item>
+        <item name="android:textColorHint">?colorPrimary</item>
+    </style>
+
+    <style name="TodoTitleTextStyle" parent="@android:style/Widget.TextView">
+        <item name="android:textSize">@dimen/todo_title_text_size</item>
+        <item name="android:fontFamily">@font/russo_one</item>
     </style>
 
 </resources>

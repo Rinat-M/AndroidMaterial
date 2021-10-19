@@ -23,6 +23,8 @@
         <item name="android:textColor">?colorOnSecondary</item>
         <item name="bottomNavigationStyle">@style/BottomNavigationView</item>
         <item name="appBarBackgroundColor">@color/white</item>
+        <item name="listItemBackgroundColor">@color/grey_50</item>
+        <item name="android:editTextColor">?colorOnSecondary</item>
     </style>
 
     <style name="GreyTheme" parent="Theme.NasaApp">
@@ -33,6 +35,7 @@
         <item name="colorControlNormal">?colorOnSecondary</item>
         <item name="android:windowBackground">@color/grey_300</item>
         <item name="appBarBackgroundColor">@color/grey_300</item>
+        <item name="listItemBackgroundColor">@color/grey_200</item>
     </style>
 
     <style name="BlueGreyTheme" parent="Theme.NasaApp">
@@ -43,6 +46,7 @@
         <item name="colorControlNormal">?colorOnSecondary</item>
         <item name="android:windowBackground">@color/blue_grey_300</item>
         <item name="appBarBackgroundColor">@color/blue_grey_300</item>
+        <item name="listItemBackgroundColor">@color/blue_grey_200</item>
     </style>
 
     <style name="IndigoTheme" parent="Theme.NasaApp">
@@ -53,6 +57,7 @@
         <item name="colorControlNormal">?colorOnSecondary</item>
         <item name="android:windowBackground">@color/indigo_300</item>
         <item name="appBarBackgroundColor">@color/indigo_300</item>
+        <item name="listItemBackgroundColor">@color/indigo_200</item>
     </style>
 
     <style name="LightGreenTheme" parent="Theme.NasaApp">
@@ -63,6 +68,7 @@
         <item name="colorControlNormal">?colorOnSecondary</item>
         <item name="android:windowBackground">@color/light_green_300</item>
         <item name="appBarBackgroundColor">@color/light_green_300</item>
+        <item name="listItemBackgroundColor">@color/light_green_200</item>
     </style>
 
     <style name="PurpleTheme" parent="Theme.NasaApp">
@@ -73,6 +79,7 @@
         <item name="colorControlNormal">?colorOnSecondary</item>
         <item name="android:windowBackground">@color/purple_300</item>
         <item name="appBarBackgroundColor">@color/purple_300</item>
+        <item name="listItemBackgroundColor">@color/purple_200</item>
     </style>
 
     <style name="MainHeader" parent="Base.Widget.MaterialComponents.TextView">
@@ -118,6 +125,13 @@
 
     <style name="AppBar" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
         <item name="android:background">?appBarBackgroundColor</item>
+        <item name="android:textColorPrimary">?colorOnSecondary</item>
+        <item name="android:textColorHint">?colorPrimary</item>
+    </style>
+
+    <style name="TodoTitleTextStyle" parent="@android:style/Widget.TextView">
+        <item name="android:textSize">@dimen/todo_title_text_size</item>
+        <item name="android:fontFamily">@font/russo_one</item>
     </style>
 
 </resources>
